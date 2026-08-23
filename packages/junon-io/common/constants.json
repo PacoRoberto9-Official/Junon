@@ -6217,7 +6217,8 @@
         "CircuitBoard": 10
       },
       "stats": {
-        "health": 250
+        "health": 250,
+        "powerConsumption": 100
       },
       "upgrade": {
         "health": "+25",
@@ -6246,7 +6247,8 @@
         "CircuitBoard": 10
       },
       "stats": {
-        "health": 250
+        "health": 250,
+        "powerConsumption": 100
       },
       "upgrade": {
         "health": "+25",
@@ -6272,7 +6274,8 @@
         "CircuitBoard": 20
       },
       "stats": {
-        "health": 250
+        "health": 250,
+        "powerConsumption": 100
       },
       "upgrade": {
         "health": "+25",
