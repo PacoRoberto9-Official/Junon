@@ -159,7 +159,7 @@ class VendingMachineMenu extends StorageMenu {
       currencyklass = "custom"
     }
 
-    let repriceButton = this.entity.owner.id === this.game.player.getId() ? "<button class='reprice_btn'><img src='/assets/images/edit_icon.png' style='width: 16px;'></button>" : ""
+    let repriceButton = (!this.entity.unowned && this.entity.owner.id === this.game.player.getId()) ? "<button class='reprice_btn'><img src='/assets/images/edit_icon.png' style='width: 16px;'></button>" : ""
 
     const el = "<div class='trade_item_row' data-group='" + klass.getSellGroup() + "' data-type='" + klass.getType() + "' data-count='" + options.count + "' data-index='" + options.index + "' >" +
                     repriceButton +
