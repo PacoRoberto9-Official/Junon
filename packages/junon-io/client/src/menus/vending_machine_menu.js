@@ -54,14 +54,14 @@ class VendingMachineMenu extends StorageMenu {
   // only let owner access storage
   finishOpen() {
     super.finishOpen()
-    if (this.entity.owner.id !== this.game.player.getId()) {
+    if (this.entity.owner && this.entity.owner.id !== this.game.player.getId()) {
       // prevent people from cheating, not the best method but it'll do
       this.el.querySelector(".storage").innerHTML = ""
     }
   }
 
   renderManageTab() {
-    if (this.entity.owner.id !== this.game.player.getId()) {
+    if (this.entity.owner && this.entity.owner.id !== this.game.player.getId()) {
       this.el.querySelector(".vending_machine_tab[data-tab='manage']").style.display = 'none'
     } else {
       this.el.querySelector(".vending_machine_tab[data-tab='manage']").style.display = 'inline-block'
@@ -70,7 +70,7 @@ class VendingMachineMenu extends StorageMenu {
 
   renderWithdrawBtn() {
     // let team = this.game.player
-    if (this.entity.owner.id === this.game.player.getId()) {
+    if (this.entity.owner && this.entity.owner.id === this.game.player.getId()) {
       this.el.querySelector(".collect_money_btn").style.display = 'block'
     } else {
       this.el.querySelector(".collect_money_btn").style.display = 'none'
@@ -159,7 +159,7 @@ class VendingMachineMenu extends StorageMenu {
       currencyklass = "custom"
     }
 
-    let repriceButton = (!this.entity.unowned && this.entity.owner.id === this.game.player.getId()) ? "<button class='reprice_btn'><img src='/assets/images/edit_icon.png' style='width: 16px;'></button>" : ""
+    let repriceButton = (this.entity.owner && this.entity.owner.id === this.game.player.getId()) ? "<button class='reprice_btn'><img src='/assets/images/edit_icon.png' style='width: 16px;'></button>" : ""
 
     const el = "<div class='trade_item_row' data-group='" + klass.getSellGroup() + "' data-type='" + klass.getType() + "' data-count='" + options.count + "' data-index='" + options.index + "' >" +
                     repriceButton +
