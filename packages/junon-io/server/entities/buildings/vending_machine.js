@@ -10,6 +10,8 @@ class VendingMachine extends BaseBuilding {
     this.purchaseHistory = {}
     if (!this.prices) this.prices = {}
     this.container.addProcessor(this)
+
+    if(this.unowned === false && this.placer) this.changeOwnership(this.placer)
   }
 
   remove() {
@@ -18,7 +20,7 @@ class VendingMachine extends BaseBuilding {
   }
 
   withdraw(player) {
-    let canWithdraw = player.isAdmin() && player.getTeam() === this.getOwner()
+    let canWithdraw = player === this.getOwner()
     if (!canWithdraw) {
       player.showError("Not allowed", { isWarning: true })
       return
@@ -63,6 +65,19 @@ class VendingMachine extends BaseBuilding {
     }
 
     return {}
+  }
+
+  changeOwnership(user) {
+    if (!user) return
+    if ((user.isPlayer && !user.isPlayer()) && (user.isPlayerData && !user.isPlayerData())) return
+
+    if (this.owner) {
+      this.owner.unregisterOwnership("structures", this)
+    }
+    
+    this.setOwner(user)
+
+    user.registerOwnership("structures", this)
   }
 
   changePrice(data) {
