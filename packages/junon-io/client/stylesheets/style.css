@@ -3669,12 +3669,13 @@ body.imposter_mode #welcome_hud .game_info {
 
 .stove_status_message,
 .processor_status_message,
+#vending_status_message,
 #crafting_status_message {
     top: 2px;
     position: absolute;
     font-family: 'cc';
     left: 50%;
-    margin-left: -65px;
+    margin-left: -55px;
     color: #dd4b4b;
 }
 
