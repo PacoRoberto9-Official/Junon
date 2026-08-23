@@ -8,6 +8,12 @@ class Dispenser extends VendingMachine {
     return "Buildings.Dispenser"
   }
 
+  canStoreInBuilding(index, item) {
+    if (!item) return true // allow swap with blank space slot
+    
+    return !item.isDrink() && !item.isFood()
+  }
+
   getType() {
     return Protocol.definition().BuildingType.Dispenser
   }
