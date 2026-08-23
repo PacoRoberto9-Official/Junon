@@ -25,6 +25,9 @@ class RemoteEventHandler {
 
   }
 
+  onTriggerPlayerMenu(player, data, socket) {
+    player.triggerPlayerMenu(data)
+  }
   onPing(player, data, socket) {
     this.getSocketUtil().emit(socket, "Pong", {})
   }
@@ -404,7 +407,8 @@ class RemoteEventHandler {
     player.sector.onButtonClicked({
       player: player.name, 
       playerId: player.id,
-      entityId: data.entityId,
+      entityId: data.entityId || "",
+      entityName: data.entityName || "",
       name: data.name
     })
   }

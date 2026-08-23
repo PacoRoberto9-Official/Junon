@@ -40,7 +40,9 @@ message Building {
   map<string,string> localeContents = 36;
   uint32 neighbors = 37;
   string name = 38;
-  map<string,uint32> prices = 39;
+  uint32 nameColor = 39;
+  uint32 nameSize = 40;
+  map<string,uint32> prices = 41;
 }
 
 message Mob {
@@ -73,4 +75,6 @@ message Mob {
   uint32 tasks = 28;
   uint32 happiness = 29;
   string content = 30;
+  uint32 nameColor = 31;
+  uint32 nameSize = 32;
 }
