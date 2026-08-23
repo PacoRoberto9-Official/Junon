@@ -165,7 +165,9 @@ message Building {
   uint32 colorIndex = 25;
   uint32 textureIndex = 26;
   string name = 27;
-  map<string,uint32> prices = 28;
+  uint32 nameColor = 28;
+  uint32 nameSize = 29;
+  map<string,uint32> prices = 30;
 }
 
 message RaidRef {
