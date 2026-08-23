@@ -31,6 +31,14 @@ class VendingMachineMenu extends StorageMenu {
   open(label, entity) {
     super.open(label, entity)
 
+    if(!this.entity.isPowered) {
+      this.el.querySelector("#vending_status_message").innerText = i18n.t('Insufficient Power')
+      this.el.querySelector(".buy_btn").dataset.disabled = true
+    } else {
+      this.el.querySelector("#vending_status_message").innerText = ""
+      this.el.querySelector(".buy_btn").dataset.disabled = false
+    }
+
     this.updateStorageGoldAmount()
     this.renderManageTab()
     this.renderWithdrawBtn()
@@ -43,8 +51,17 @@ class VendingMachineMenu extends StorageMenu {
     this.selectTab(this.el.querySelector(".vending_machine_tab[data-tab='purchase']"))
   }
 
+  // only let owner access storage
+  finishOpen() {
+    super.finishOpen()
+    if (this.entity.owner.id !== this.game.player.getId()) {
+      // prevent people from cheating, not the best method but it'll do
+      this.el.querySelector(".storage").innerHTML = ""
+    }
+  }
+
   renderManageTab() {
-    if (this.game.player.isGuest()) {
+    if (this.entity.owner.id !== this.game.player.getId()) {
       this.el.querySelector(".vending_machine_tab[data-tab='manage']").style.display = 'none'
     } else {
       this.el.querySelector(".vending_machine_tab[data-tab='manage']").style.display = 'inline-block'
@@ -52,8 +69,8 @@ class VendingMachineMenu extends StorageMenu {
   }
 
   renderWithdrawBtn() {
-    let team = this.game.player.getTeam()
-    if (this.game.isLeaderAndOwner(this.entity, team, this.game.player)) {
+    // let team = this.game.player
+    if (this.entity.owner.id === this.game.player.getId()) {
       this.el.querySelector(".collect_money_btn").style.display = 'block'
     } else {
       this.el.querySelector(".collect_money_btn").style.display = 'none'
@@ -74,7 +91,7 @@ class VendingMachineMenu extends StorageMenu {
 
   onBuyBtnClick() {
     if (!this.selectedRow) return
-    if (this.el.querySelector(".buy_btn").dataset.disabled === "true") return
+    if (this.el.querySelector(".buy_btn").dataset.disabled === "true" || !this.entity.isPowered) return
 
     let group = this.selectedRow.dataset.group
     let type = this.selectedRow.dataset.type
@@ -142,8 +159,7 @@ class VendingMachineMenu extends StorageMenu {
       currencyklass = "custom"
     }
 
-    let team = this.game.player.getTeam()
-    let repriceButton = this.game.player.isAdmin() ? "<button class='reprice_btn'><img src='/assets/images/edit_icon.png' style='width: 16px;'></button>" : ""
+    let repriceButton = this.entity.owner.id === this.game.player.getId() ? "<button class='reprice_btn'><img src='/assets/images/edit_icon.png' style='width: 16px;'></button>" : ""
 
     const el = "<div class='trade_item_row' data-group='" + klass.getSellGroup() + "' data-type='" + klass.getType() + "' data-count='" + options.count + "' data-index='" + options.index + "' >" +
                     repriceButton +
@@ -193,7 +209,7 @@ class VendingMachineMenu extends StorageMenu {
 
   onRepriceBtnClick() {
     // verify perms before doing this...
-    if (!this.game.player.isAdmin()) return
+    if (this.game.player.getId() !== this.entity.owner.id) return
 
     if (this.selectedRow) {
       let type = this.selectedRow.dataset.type
