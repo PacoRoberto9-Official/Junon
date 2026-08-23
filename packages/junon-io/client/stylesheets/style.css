@@ -3324,6 +3324,14 @@ html[lang='ru'] .blueprint_name {
     float: left;
 }
 
+.crafting_options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
 .crafting_requirements {
     margin-left: 10px;
 }
