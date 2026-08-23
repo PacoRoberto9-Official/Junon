@@ -30,8 +30,7 @@ class VendingMachine extends BaseBuilding {
 
     let actions = ""
 
-    let team = this.game.player.getTeam()
-    if (this.game.isLeaderAndOwner(this, team, this.game.player)) {
+    if (this.owner && this.owner.id === this.game.player.getId()) {
       actions += withdraw
     }
 
@@ -45,7 +44,7 @@ class VendingMachine extends BaseBuilding {
       this.prices = prices
     }
   }
-  
+
   onContentChanged() {
     if (this.game.vendingMachineMenu.entity === this) {
       this.game.vendingMachineMenu.updateStorageGoldAmount()
