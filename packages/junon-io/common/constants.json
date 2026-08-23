@@ -5882,8 +5882,8 @@
       "stats": {
         "health": 150,
         "count": 125,
-        "powerProduction": 10,
-        "powerCapacity": 1000,
+        "powerProduction": 25,
+        "powerCapacity": 500,
         "clientResource": "power"
       },
       "upgrade": {

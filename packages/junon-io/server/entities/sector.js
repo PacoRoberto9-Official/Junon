@@ -375,6 +375,8 @@ class Sector {
   }
 
   initSettings(entities) {
+    console.log("gameMode:", this.gameMode)
+    console.log("isPeaceful:", this.isPeaceful())
     let firespread = true;
     let isItemBreakingEnabled = true;
     if(this.isPeaceful()) firespread = false;
@@ -405,7 +407,9 @@ class Sector {
       isGravityEnabled: false,
       isFireSpreadEnabled: firespread,
       isItemBreakingEnabled: true,
+      isOverclockEnabled: false,
       isSpectateAllowed: true
+      
     }
 
     if (!entities) return

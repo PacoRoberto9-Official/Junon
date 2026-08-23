@@ -3168,6 +3168,8 @@ class Player extends BaseEntity {
   }
 
   onPressKeyChanged(pressedKey) {
+    if (!pressedKey) return
+
     let char = String.fromCharCode(pressedKey).toLowerCase()
 
     this.game.triggerEvent("PlayerKeyboard", {
@@ -4013,7 +4015,6 @@ class Player extends BaseEntity {
 
     if (this.itemSwitchAllowActionTime) {
       if (currentTime > this.itemSwitchAllowActionTime) {
-        // seconds delay after switching weapons
         this.itemSwitchAllowActionTime = null
         return true
       } else {
@@ -5431,7 +5432,15 @@ class Player extends BaseEntity {
     const oldItem = this.inventory.get(prevIndex)
     const item = this.inventory.get(newIndex)
     if (oldItem && oldItem.isFireArmOrThrowableOrMelee()) {
-      this.itemSwitchAllowActionTime = this.lastActionTime + oldItem.getCooldownInMilliseconds()
+      const newActionTime = this.lastActionTime + oldItem.getCooldownInMilliseconds()
+      if (this.sector.getSetting("isOverclockEnabled")) {
+        this.itemSwitchAllowActionTime = newActionTime
+      } else {
+        this.itemSwitchAllowActionTime = Math.max(
+          this.itemSwitchAllowActionTime || 0,
+          newActionTime
+        )
+      }
     }
     this.setHandEquipment(item)
   }
