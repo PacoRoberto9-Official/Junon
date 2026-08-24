@@ -4950,8 +4950,9 @@ class Player extends BaseEntity {
   }
 
   setScore(amount) {
+    let prevScore = this.score
     this.score = amount
-    this.onScoreChanged()
+    this.onScoreChanged(prevScore, this.score)
   }
 
   increaseScore(amount) {
