@@ -8,6 +8,7 @@ const Helper = require('../../common/helper')
 const Constants = require('../../common/constants.json')
 const EntityGroup = require("./entity_group")
 const Perlin = require("../util/perlin")
+const { indexOf } = require("lodash")
 
 class EventHandler {
   constructor(sector) {
@@ -1377,6 +1378,42 @@ class EventHandler {
     return letter
   }
 
+  getValuePosition(...values) {
+    if (values.length < 3) return undefined;
+    let returnIndex = 0;
+    let index = 0;
+    let targetIndex = parseInt(values[0]);
+    let value = values[1].toString();
+    let string = values[2].toString();
+    while (index < targetIndex) {
+      returnIndex = string.indexOf(value, returnIndex) + value.length;
+      index += 1;
+    }
+    return returnIndex - value.length + 1;
+  }
+
+  getValueLength(...values) {
+    if (values.length === 0) return 0;
+    let string = values[0].toString().length;
+    return string;
+  }
+
+  getPushedValue(...values) {
+    if (values.length < 3) return undefined;
+    let index = parseInt(values[0]);
+    let value = values[1].toString();
+    let string = values[2].toString();
+    return string.slice(0, index) + value + string.slice(index);
+  }
+
+  getRemovedValue(...values) {
+    if (values.length < 3) return undefined;
+    let value = values[1].toString();
+    let string = values[2].toString();
+    let startIndex = this.getValuePosition(...values) - 1;
+    return string.slice(0,startIndex) + string.slice(startIndex + value.length);
+  }
+
   isVariableInvalid(key) {
     return key.match(/[^a-zA-Z0-9_$]/)
   }
@@ -1483,7 +1520,11 @@ class EventHandler {
       "$getState": true,
       "$getNthLetter": true,
       "$getNthWord": true,
-      "$if": true
+      "$if": true,
+      "$getValuePosition": true,
+      "$getValueLength": true,
+      "$getPushedValue": true,
+      "$getRemovedValue": true
     }
   }
 
