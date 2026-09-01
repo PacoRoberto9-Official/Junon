@@ -190,6 +190,10 @@ Taintable.prototype = {
     this.setEffectLevel("dirt", this.getEffectLevel("dirt") - 1)
   },
 
+  setDirt(lvl) {
+    this.setEffectLevel("dirt", Math.max(Math.min(parseInt(lvl),4),0))
+  },
+
   getDirtLevel() {
     return this.getEffectLevel("dirt")
   },

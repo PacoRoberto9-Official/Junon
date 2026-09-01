@@ -37,6 +37,7 @@ const uuidv4 = require('uuid/v4')
 const Trigger = require("../menus/command_blocks/trigger")
 const ActionValue = require("../menus/command_blocks/action_value")
 const Comparison = require("../menus/command_blocks/comparison")
+const client_helper = require("./../util/client_helper")
 
 class Game {
   constructor(main) {
@@ -92,6 +93,8 @@ class Game {
     this.energyBar = document.querySelector('.energy_stat')
     this.errorContent = document.querySelector('#error_menu_content')
     this.errorTitle = document.querySelector('#error_title')
+    this.captionCenter = document.querySelector('#caption_center')
+    this.captionFooter = document.querySelector('#caption_footer')
     this.shipStatSpeed = document.querySelector('.ship_stat_speed')
     this.shipStatHealth = document.querySelector('.ship_stat_health')
     this.shipStatShield = document.querySelector('.ship_stat_shield')
@@ -1460,6 +1463,7 @@ class Game {
     this.main.showMainMenu()
     this.hideActionTooltip()
     this.hideGameHuds()
+    closeEntityMenu()
   }
 
   closeInGameMenu() {
@@ -2860,25 +2864,46 @@ class Game {
 
   displayError(msg, options = {}) {
     msg = i18n.t(msg)
-
-    if (!this.errorFadeOutTween) {
-      this.errorFadeInTween = ClientHelper.getFadeTween(this.errorContent.parentElement, 0, 1, 0)
-      this.errorFadeInTween.start()
-    } else {
-
-    }
-
-    this.errorContent.parentElement.style.display = 'block'
+console.log(options)
 
     let textContent
     if (options.isTitle) {
       textContent = this.errorTitle
+    } else if (options.isFooter) {
+      textContent = this.captionFooter
+      if (this.footerFadeOutTween) {this.footerFadeOutTween.stop()}
+      this.footerFadeInTween = ClientHelper.getFadeTween(textContent, parseFloat(textContent.style.opacity), 1, 0)
+      this.footerFadeInTween.start()
+
+    } else if (options.isCenter) {
+      textContent = this.captionCenter
+      if (this.centerFadeOutTween) {this.centerFadeOutTween.stop()}
+      this.centerFadeInTween = ClientHelper.getFadeTween(textContent, parseFloat(textContent.style.opacity), 1, 0)
+      this.centerFadeInTween.start()
+    
     } else {
       textContent = this.errorContent
     }
 
+    if (textContent == this.errorContent || textContent == this.errorTitle) {
+      if (!this.errorFadeOutTween) {
+        this.errorFadeInTween = ClientHelper.getFadeTween(this.errorContent.parentElement, 0, 1, 0)
+        this.errorFadeInTween.start()
+      } else {
+        this.errorFadeOutTween.stop()
+        this.errorFadeInTween = ClientHelper.getFadeTween(this.errorContent.parentElement, parseFloat(this.errorContent.parentElement.style.opacity), 1, 0)
+        this.errorFadeInTween.start()
+      }
+      this.errorContent.parentElement.style.display = 'block'
+    }
+
+    console.log(textContent)
+
     textContent.innerText = msg
     textContent.className = ""
+    textContent.style.cssText = 'pointer-events: none !important; user-select: none !important; -webkit-user-select: none !important;';
+    textContent.ondragstart = () => false;
+
 
     if (options.isTitle) {
       if (options.color) {
@@ -2891,7 +2916,7 @@ class Game {
     if (options.size) {
       textContent.style.fontSize = options.size + "px"
     } else {
-      if (options.isTitle) {
+      if (options.isTitle || options.isCenter) {
         textContent.style.fontSize = "60px"
       } else {
         textContent.style.fontSize = "30px"
@@ -2910,22 +2935,57 @@ class Game {
       textContent.classList.add("transparent")
     }
 
-    if (this.errorFadeOutTween) {
-      // reset it
-      this.errorFadeOutTween.stop()
+    if (textContent == this.errorContent || textContent == this.errorTitle) {
+      if (this.errorFadeOutTween) {
+        this.errorFadeOutTween.stop()
+      }
+      
+      this.errorFadeOutTween = ClientHelper.getFadeTween(this.errorContent.parentElement, 1, 0, 5000)
+      this.errorFadeOutTween.start()
+      
+      this.errorFadeOutTween.onStop(() => {
+        this.errorFadeOutTween = null
+      })
+
+      this.errorFadeOutTween.onComplete(() => {
+        this.errorFadeOutTween = null
+        this.errorContent.innerText = ""
+        this.errorTitle.innerText = ""
+      })
+    } else if (textContent == this.captionFooter) {
+      if (this.footerFadeOutTween) {
+        this.footerFadeOutTween.stop()
+      }
+
+      this.footerFadeOutTween = ClientHelper.getFadeTween(textContent, 1, 0, 5000)
+      this.footerFadeOutTween.start()
+
+      this.footerFadeOutTween.onStop(() => {
+        this.footerFadeOutTween = null
+      })
+
+      this.footerFadeOutTween.onComplete(() => {
+        this.footerFadeOutTween = null
+        this.captionFooter.innerText = ""
+      })
+    } else if (textContent == this.captionCenter) {
+      if (this.centerFadeOutTween) {
+        this.centerFadeOutTween.stop()
+      }
+
+      this.centerFadeOutTween = ClientHelper.getFadeTween(textContent, 1, 0, 5000)
+      this.centerFadeOutTween.start()
+
+      this.centerFadeOutTween.onStop(() => {
+        this.centerFadeOutTween = null
+      })
+
+      this.centerFadeOutTween.onComplete(() => {
+        this.centerFadeOutTween = null
+        this.captionCenter.innerText = ""
+      })
     }
-
-    this.errorFadeOutTween = ClientHelper.getFadeTween(this.errorContent.parentElement, 1, 0, 5000)
-    this.errorFadeOutTween.start()
-    this.errorFadeOutTween.onStop(() => {
-      this.errorFadeOutTween = null
-    })
-
-    this.errorFadeOutTween.onComplete(() => {
-      this.errorFadeOutTween = null
-      this.errorContent.innerText = ""
-      this.errorTitle.innerText = ""
-    })
+    
   }
 
   isPvP() {
@@ -4439,6 +4499,8 @@ class Game {
 
       document.querySelector("#error_title").innerText = ""
       document.querySelector("#error_menu_content").innerText = ""
+      document.querySelector("#caption_footer").innerText = ""
+      document.querySelector("#caption_center").innerText = ""
 
       // reset scale
       this.gameLayer.scale.set(1)
@@ -4561,7 +4623,7 @@ class Game {
   }
 
   onErrorMessage(data) {
-    this.displayError(data.message, { warning: data.isWarning, success: data.isSuccess, transparent: data.isTransparent, color: data.color, size: data.size, isTitle: data.isTitle })
+    this.displayError(data.message, { warning: data.isWarning, success: data.isSuccess, transparent: data.isTransparent, color: data.color, size: data.size, isTitle: data.isTitle, isCenter:data.isCenter, isFooter:data.isFooter })
   }
 
   resetInventory() {

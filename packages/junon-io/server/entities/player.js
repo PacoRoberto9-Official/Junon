@@ -136,6 +136,7 @@ class Player extends BaseEntity {
     await user.save();
   }
 
+
   async userHasBadge(badgeId) {
     let user = await User.findOne({where: {uid: this.uid}})
     if(!user || !user.badges) return
@@ -150,14 +151,14 @@ class Player extends BaseEntity {
    * Use await with this function!!!!
    * @returns {Promise<boolean>}
    */
-  async hasUserPlayed2Years() {
+  async hasUserPlayed5Years() {
     let userCreatedAt = await this.getUserCreatedAt()
 
     let now = new Date()
     let diff = now - userCreatedAt
     let diffDays = diff / (1000 * 60 * 60 * 24)
 
-    return diffDays > 730
+    return diffDays > 360*5
   }
 
   getBadgeKlass(id) {
@@ -199,8 +200,16 @@ class Player extends BaseEntity {
     
   }
 
-  async equipBadge(badgeName) {
+  async equipBadge(badgeSetName) {
     try {
+      let badgeName = badgeSetName
+      let user = await User.findOne({where: {uid: this.uid}})
+      if(!user) return
+
+      if (badgeName == "Default") {
+        badgeName = user.equippedBadge || "None"
+      }
+      
       let badge = new Badges.badges[badgeName]()
       if(!await this.userHasBadge(badge.getId())) {
         return
@@ -215,7 +224,11 @@ class Player extends BaseEntity {
         },
         playerId: this.id
       })
+      
+      user.equippedBadge = badgeName
+      await user.save();
     } catch(e) {
+      console.log(e)
       return
     }
     
@@ -776,7 +789,7 @@ class Player extends BaseEntity {
       this.tutorialIndex["main"] = 1
     }
 
-    this.equipBadge("None")
+    this.equipBadge("Default")
 
     this.game.sendToMatchmaker({ event: "PlayerJoin",
       data: {
