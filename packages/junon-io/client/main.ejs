@@ -806,22 +806,22 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getY</td>
-                            <td>$player</td>
+                            <td>$player, $entityId</td>
                             <td>The y position of player. Ex. /tp @a[role=Admin] $getY($player) 64</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getX</td>
-                            <td>$player</td>
+                            <td>$player, $entityId</td>
                             <td>The x position of player. Ex. /tp @a[role=Admin] 64 $getX($player)</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getRow</td>
-                            <td>$player</td>
+                            <td>$player, $entityId</td>
                             <td>The row position of player. Ex. /tp @a[role=Admin] $getRow($player) 64</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getCol</td>
-                            <td>$player</td>
+                            <td>$player, $entityId</td>
                             <td>The col position of player. Ex. /tp @a[role=Admin] 64 $getCol($player)</td>
                         </tr>
                         <tr>
@@ -831,7 +831,7 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getHealth</td>
-                            <td>$player</td>
+                            <td>$player, $entityId</td>
                             <td>The amount of health player currently has. Ex. /chat @a $player now has $getHealth($player) health.</td>
                         </tr>
                         <tr>
@@ -851,7 +851,7 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getMaxHealth</td>
-                            <td>$player</td>
+                            <td>$player, $entityId</td>
                             <td>The max amount of health player currently has. Ex. /chat @a $player now has maximum health of $getMaxHealth($player)</td>
                         </tr>
                         <tr>
@@ -876,7 +876,7 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getOwner</td>
-                            <td>buildingId</td>
+                            <td>$buildingId</td>
                             <td>The id of owner. Ex. /setowner @b[type=wall] $getOwner(2917)</td>
                         </tr>
                         <tr>
@@ -887,7 +887,7 @@
                         <tr>
                             <td class='function_name'>$seedRandom</td>
                             <td>seed, min, max</td>
-                            <td>A random number between min and max, but uses seed. Ex. $random(42, 2,5)</td>
+                            <td>A random number between min and max using a seed. Ex. $random(42, 2,5)</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$simplex</td>
@@ -1101,18 +1101,18 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getAngle</td>
-                            <td>$entityId/$playerId</td>
-                            <td>Returns the angle of the specified entity or player. Ex. /chat @a $getAngle($entityId/$playerId)</td>
+                            <td>$entityId, $playerId</td>
+                            <td>Returns the angle of the specified entity or player. Ex. /chat @a $getAngle($entityId)</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getName</td>
-                            <td>$entityId/$playerId</td>
-                            <td>Returns the name of the specified entity or player. Ex. /chat @a $getName($entityId/$playerId)</td>
+                            <td>$entityId, $playerId</td>
+                            <td>Returns the name of the specified entity or player. Ex. /chat @a $getName($entityId)</td>
                         </tr>
                         <tr>
                             <td class="function_name">$getIsPowered</td>
                             <td>$buildingId</td>
-                            <td>Returns true if building is powered, else false</td>
+                            <td>Returns true if building is powered, otherwise it is false</td>
                         </tr>
                         <tr>
                             <td class="function_name">$getUsage</td>
@@ -1126,22 +1126,22 @@
                         </tr>
                         <tr>
                             <td class="function_name">$getNthLetter</td>
-                            <td>index, word</td>
-                            <td>Returns the Nth letter of a word</td>
+                            <td>index, value</td>
+                            <td>Returns the Nth letter of a value</td>
                         </tr>
                         <tr>
                             <td class="function_name">$getNthWord</td>
-                            <td>index, string</td>
-                            <td>Returns the Nth word of a string</td>
+                            <td>index, value</td>
+                            <td>Returns the Nth word of a value</td>
                         </tr>
                         <tr>
                             <td class="function_name">$getForceX</td>
-                            <td>$entityId</td>
+                            <td>$player, $entityId</td>
                             <td>Returns the x force applied on entity</td>
                         </tr>
                         <tr>
                             <td class="function_name">$getForceY</td>
-                            <td>$entityId</td>
+                            <td>$player, $entityId</td>
                             <td>Returns the y force applied on entity</td>
                         </tr>
                         <tr>
