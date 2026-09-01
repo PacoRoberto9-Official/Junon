@@ -207,7 +207,7 @@ class Player extends BaseEntity {
       if(!user) return
 
       if (badgeName == "Default") {
-        badgeName = user.equippedBadge || "None"
+        badgeName = "None"
       }
       
       let badge = new Badges.badges[badgeName]()
@@ -225,7 +225,6 @@ class Player extends BaseEntity {
         playerId: this.id
       })
       
-      user.equippedBadge = badgeName
       await user.save();
     } catch(e) {
       console.log(e)
