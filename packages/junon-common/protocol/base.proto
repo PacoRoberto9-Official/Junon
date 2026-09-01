@@ -881,6 +881,8 @@ message ErrorMessage {
   uint32 size = 5;
   bool isTitle = 6;
   bool isSuccess = 7;
+  bool isCenter = 8;
+  bool isFooter = 9;
 }
 
 message Craft {

@@ -87,7 +87,8 @@ User.init({
     defaultValue: true
   },
   ip: Sequelize.STRING,
-  badges: Sequelize.TEXT
+  badges: Sequelize.TEXT,
+  equippedBadge: Sequelize.TEXT,
 },{
   sequelize,
   modelName: 'User',
