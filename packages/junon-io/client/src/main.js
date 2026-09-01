@@ -2008,7 +2008,7 @@ class Main {
 
   isModerator() {
     if (!this.userData) return false
-    let mods = ["kuroro", "BigTforLife", "superaaron"]
+    let mods = ["kuroro", "BigTforLife", "superaaron","Test_User"]
     return mods.indexOf(this.userData.username) !== -1
   }
 
