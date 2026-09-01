@@ -1645,6 +1645,27 @@ html[lang='ja'] .stats_type {
     opacity: 1;
     padding: 5px 10px;
 }
+#caption_center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: cc;
+    font-size: 60px;
+    opacity: 0;
+    color: white;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+#caption_footer {
+    position: fixed;
+    bottom: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: cc;
+    font-size: 30px;
+    opacity: 0;
+    color: white;
+}
 
 #error_title:empty,
 #error_menu_content:empty {
@@ -7676,6 +7697,19 @@ body.minigame #map_menu_frame {
     margin-top: 20px;
     background-color: #bf5036;
     font-family: 'cc';
+    line-height: 20px;
+    font-size: 25px;
+}
+.open_event_badges_btn {
+    display: none;
+    margin-top: 20px;
+    background-color: #00000000;
+    font-family: 'cc';
+    line-height: 30px;
+    margin-right: 15px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
 
 .global_ban_list_container {
