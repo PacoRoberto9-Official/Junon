@@ -1070,6 +1070,11 @@
                             <td>Gives the hour count of your world back. Ex. /chat @a The hour count of this world is $getHour()</td>
                         </tr>
                         <tr>
+                            <td class='function_name'>$getDate</td>
+                            <td>year/month/day/dayweek/hour/minute/second/millisecond/unixms, year month day hour minute second millisecond</td>
+                            <td>Returns the component of the date in UTC as number. If the date is empty, then it will return using the current date in UTC. Ex. $getDate(hour) will return today's hour, $getDate(year,2014 4 1) will return 2014, $getDate(unixms) will return today's date in unix milliseconds.</td>
+                        </tr>
+                        <tr>
                             <td class='function_name'>$getContent</td>
                             <td>$entityId</td>
                             <td>Gives the content of a sign/beacon/lamp. Ex. /chat The sign says $getContent(191)</td>
