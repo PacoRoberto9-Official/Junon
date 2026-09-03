@@ -806,22 +806,22 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getY</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>The y position of player. Ex. /tp @a[role=Admin] $getY($player) 64</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getX</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>The x position of player. Ex. /tp @a[role=Admin] 64 $getX($player)</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getRow</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>The row position of player. Ex. /tp @a[role=Admin] $getRow($player) 64</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getCol</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>The col position of player. Ex. /tp @a[role=Admin] 64 $getCol($player)</td>
                         </tr>
                         <tr>
@@ -831,7 +831,7 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getHealth</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>The amount of health player currently has. Ex. /chat @a $player now has $getHealth($player) health.</td>
                         </tr>
                         <tr>
@@ -851,7 +851,7 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getMaxHealth</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>The max amount of health player currently has. Ex. /chat @a $player now has maximum health of $getMaxHealth($player)</td>
                         </tr>
                         <tr>
@@ -1055,19 +1055,24 @@
                             <td>true if logged in. false if not.</td>
                         </tr>
                         <tr>
-                            <td class='function_name'>$getBuildingType</td>
+                            <td class='function_name'>$getEntityType</td>
                             <td>$entityId</td>
-                            <td>the type name of a building or entity. Ex. /chat @a The building type of entity number 2017 is $getBuildingType(2017)</td>
+                            <td>the type name of a entity. Ex. /chat @a The entity type of entity id 2017 is $getBuildingType(2017)</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getDay</td>
                             <td>None</td>
-                            <td>Gives the daycount of your world back. Ex. /chat @a The daycount of this world is $getDay()</td>
+                            <td>Gives the day count of your world back. Ex. /chat @a The day count of this world is $getDay()</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getHour</td>
                             <td>None</td>
-                            <td>Gives the hourcount of your world back. Ex. /chat @a The hourcount of this world is $getHour()</td>
+                            <td>Gives the hour count of your world back. Ex. /chat @a The hour count of this world is $getHour()</td>
+                        </tr>
+                        <tr>
+                            <td class='function_name'>$getDate</td>
+                            <td>year/month/day/dayweek/hour/minute/second/millisecond/unixms, year month day hour minute second millisecond</td>
+                            <td>Returns the component of the date in UTC as number. If the date is empty, then it will return using the current date in UTC. Ex. $getDate(hour) will return today's hour, $getDate(year,2014 4 1) will return 2014, $getDate(unixms) will return today's date in unix milliseconds.</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getContent</td>
@@ -1101,12 +1106,12 @@
                         </tr>
                         <tr>
                             <td class='function_name'>$getAngle</td>
-                            <td>$entityId, $playerId</td>
+                            <td>$entityId/$playerId</td>
                             <td>Returns the angle of the specified entity or player. Ex. /chat @a $getAngle($entityId)</td>
                         </tr>
                         <tr>
                             <td class='function_name'>$getName</td>
-                            <td>$entityId, $playerId</td>
+                            <td>$entityId/$playerId</td>
                             <td>Returns the name of the specified entity or player. Ex. /chat @a $getName($entityId)</td>
                         </tr>
                         <tr>
@@ -1156,12 +1161,12 @@
                         </tr>
                         <tr>
                             <td class="function_name">$getForceX</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>Returns the x force applied on entity.</td>
                         </tr>
                         <tr>
                             <td class="function_name">$getForceY</td>
-                            <td>$player, $entityId</td>
+                            <td>$player/$entityId</td>
                             <td>Returns the y force applied on entity.</td>
                         </tr>
                         <tr>
@@ -1305,7 +1310,7 @@
 
     <div id='blueprint_menu' class='modal_menu'>
         <div id='blueprint_container_header' class='menu_main_header'><%= t('Crafting') %></div>
-        <div id='blueprint_container_cancel_btn' class='cancel_btn'></div>
+        <div id='blueprint_continer_cancel_btn' class='cancel_btn'></div>
         <div id='blueprint_main_container' class=''></div>
         <div id='product_main_container' class=''>
             <div class='product_container'>
