@@ -1604,11 +1604,11 @@ class BaseEntity extends BaseTransientEntity {
     const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
     if (!isTwoSecondInterval) return
 
-    const duration = 30 * Constants.physicsTimeStep
+    const invisibleDuration = 30 * Constants.physicsTimeStep
 
     if (this.hasEffect("invisible")) {
       const accumulatedTime = this.game.timestamp - this.getEffectCreatedAt("invisible")
-      if (accumulatedTime >= duration) {
+      if (accumulatedTime >= invisibleDuration) {
         this.removeEffect("invisible")
       }
     }
@@ -1618,11 +1618,11 @@ class BaseEntity extends BaseTransientEntity {
     const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
     if (!isTwoSecondInterval) return
 
-    const duration = 15 * Constants.physicsTimeStep
+    const hasteDuration = 15 * Constants.physicsTimeStep
 
     if (this.hasEffect("haste")) {
       const accumulatedTime = this.game.timestamp - this.getEffectCreatedAt("haste")
-      if (accumulatedTime >= duration) {
+      if (accumulatedTime >= hasteDuration) {
         this.removeEffect("haste")
       }
     }
