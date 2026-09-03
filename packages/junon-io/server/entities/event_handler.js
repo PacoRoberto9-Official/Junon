@@ -858,6 +858,10 @@ class EventHandler {
     return entity.type || ""
   }
 
+  getEntityType(entityId) {
+    return this.getBuildingType(entityId)
+  }
+
   hasEffect(entityId, effectName) {
     let player = this.getPlayer(entityId)
     if (player) {
@@ -1553,6 +1557,7 @@ class EventHandler {
       "$isLoggedIn": true,
       "$getEquipId": true,
       "$getBuildingType": true,
+      "$getEntityType": true,
       "$getDay": true,
       "$getHour": true,
       "$getContent": true,
