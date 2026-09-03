@@ -843,7 +843,7 @@ class EventHandler {
   }
 
   getBuildingType(entityId) {
-    let entity = this.game.getEntity(entityId)
+    let entity = this.game.getEntity(entityId) || this.game.getEntity(this.getPlayerId(entityId))
     
     if (!entity) return ""
     
