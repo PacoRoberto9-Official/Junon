@@ -3835,15 +3835,15 @@ class Player extends BaseEntity {
   }
 
   consumeRage() {
-    const isFiveSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 5) === 0
-    if (!isFiveSecondInterval) return
+    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
+    if (!isTwoSecondInterval) return
 
     if (!this.hasEffect("rage")) return
 
     let effectDuration = this.game.timestamp - this.getEffectCreatedAt("rage")
     let effectDurationInSeconds = Math.floor(effectDuration / Constants.physicsTimeStep)
 
-    if (effectDurationInSeconds >= 60) {
+    if (effectDurationInSeconds >= this.getEffectDuration("rage")) {
       this.removeRage()
     }
   }
