@@ -547,12 +547,17 @@ class EventHandler {
   }
 
   getName(entityId) {
-    const entity = this.game.getEntity(entityId)
+    let player = this.getPlayer(entityId)
+    if (player) {
+      return player.name
+    }
+
+    let entity = this.game.getEntity(entityId)
     if (entity) {
       return entity.name
-    } else {
-      return undefined
     }
+
+    return undefined
   }
 
   getTeamColor(playerId) {
