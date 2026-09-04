@@ -4024,7 +4024,7 @@
         "Beer": 1,
         "Cloth": 1
       },
-      "description": "Throw it to an area to create flames"
+      "description": "Throwable item that creates an area of flames"
     },
     "Grenade": {
       "parent": "Equipments.MeleeEquipment",
