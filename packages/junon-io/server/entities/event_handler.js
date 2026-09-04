@@ -9,6 +9,7 @@ const Constants = require('../../common/constants.json')
 const EntityGroup = require("./entity_group")
 const Perlin = require("../util/perlin")
 const { indexOf } = require("lodash")
+const helper = require("../../common/helper")
 
 class EventHandler {
   constructor(sector) {
@@ -360,9 +361,14 @@ class EventHandler {
 
   getInventoryItemCount(entityId, typeName) {
     let player = this.getPlayer(entityId)
-    if (!player) return 0
+    if (player) {
+      return player.getInventoryItemCount(typeName)
+    }
 
-    return player.getInventoryItemCount(typeName)
+    let entity = this.game.getEntity(entityId)
+    if (!entity) return 0
+
+    return entity.getInventoryItemCount(typeName)
   }
 
   getContent(entityId) {
@@ -541,12 +547,17 @@ class EventHandler {
   }
 
   getName(entityId) {
-    const entity = this.game.getEntity(entityId)
+    let player = this.getPlayer(entityId)
+    if (player) {
+      return player.name
+    }
+
+    let entity = this.game.getEntity(entityId)
     if (entity) {
       return entity.name
-    } else {
-      return undefined
     }
+
+    return undefined
   }
 
   getTeamColor(playerId) {
