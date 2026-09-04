@@ -1900,6 +1900,19 @@ class BaseBuilding extends BaseEntity {
 
     return countMet
   }
+  
+  getInventoryItemCount(ingredientType) {
+    let currentCount = 0
+
+    for (let index in this.storage) {
+      let item = this.storage[index]
+      if (item && item.type === Helper.getBuildingTypeByName(this.sector.klassifySnakeCase(ingredientType))) {
+        currentCount += item.count
+      }
+    }
+
+    return currentCount
+  }
 
   canAddEffect(effectName) {
     if (effectName === "spin") return false
