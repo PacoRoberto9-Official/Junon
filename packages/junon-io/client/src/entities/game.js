@@ -3212,6 +3212,15 @@ console.log(options)
   }
 
   onSyncWithServer(data) {
+    let PrevLighting = this.isLightingCustom
+    this.isLightingCustom = data.isLightingCustom
+    if (this.isLightingCustom == 0) {
+      this.isLightingCustom = null
+    }
+    if (PrevLighting != this.isLightingCustom) {
+      this.sector.lightManager.setDarkness(this.hour)
+    }
+    
     this.timestamp = data.timestamp
 
     this.markPacketTick()
@@ -3375,7 +3384,7 @@ console.log(options)
 
   renderHour(data) {
     if (!data.hasOwnProperty("hour")) return
-
+    console.log(this.isLightingCustom)
     if (this.hour !== data.hour) {
       this.hour = data.hour
       this.onHourChanged()

@@ -1724,6 +1724,7 @@ class Game {
         } else {
           this.gameInfo["memory"] = null
         }
+        this.gameInfo["isLightingCustom"] = this.isLightingCustom
 
         if (player.getSentHour() === null ||
             player.getSentHour() !== this.sector.getHour()) {
