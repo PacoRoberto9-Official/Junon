@@ -8682,6 +8682,12 @@ body.imposter_mode .minigame_poster {
     color: orange !important;
 }
 
+.function_header {
+    color: #ffc14d !important;
+    font-size: 20px;
+    margin: 7px;
+}
+
 .action_description a {
     color: cyan;
 }
