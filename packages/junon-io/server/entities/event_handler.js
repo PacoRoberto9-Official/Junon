@@ -9,6 +9,7 @@ const Constants = require('../../common/constants.json')
 const EntityGroup = require("./entity_group")
 const Perlin = require("../util/perlin")
 const { indexOf } = require("lodash")
+const helper = require("../../common/helper")
 
 class EventHandler {
   constructor(sector) {
@@ -360,9 +361,14 @@ class EventHandler {
 
   getInventoryItemCount(entityId, typeName) {
     let player = this.getPlayer(entityId)
-    if (!player) return 0
+    if (player) {
+      return player.getInventoryItemCount(typeName)
+    }
 
-    return player.getInventoryItemCount(typeName)
+    let entity = this.game.getEntity(entityId)
+    if (!entity) return 0
+
+    return entity.getInventoryItemCount(typeName)
   }
 
   getContent(entityId) {
@@ -541,12 +547,17 @@ class EventHandler {
   }
 
   getName(entityId) {
-    const entity = this.game.getEntity(entityId)
+    let player = this.getPlayer(entityId)
+    if (player) {
+      return player.name
+    }
+
+    let entity = this.game.getEntity(entityId)
     if (entity) {
       return entity.name
-    } else {
-      return undefined
     }
+
+    return undefined
   }
 
   getTeamColor(playerId) {
@@ -843,7 +854,7 @@ class EventHandler {
   }
 
   getBuildingType(entityId) {
-    let entity = this.game.getEntity(entityId)
+    let entity = this.game.getEntity(entityId) || this.game.getEntity(this.getPlayerId(entityId))
     
     if (!entity) return ""
     
@@ -856,6 +867,10 @@ class EventHandler {
     }
     
     return entity.type || ""
+  }
+
+  getEntityType(entityId) {
+    return this.getBuildingType(entityId)
   }
 
   hasEffect(entityId, effectName) {
@@ -1414,6 +1429,57 @@ class EventHandler {
     return string.slice(0,startIndex) + string.slice(startIndex + value.length);
   }
 
+  getDate(...values) {
+    if (values.length === 0) return undefined;
+    let component = values[0].toString();
+    const acceptedvalues = [
+      'year',
+      'month',
+      'day',
+      'dayweek',
+      'hour',
+      'minute',
+      'second',
+      'millisecond',
+      'unixms'
+    ];
+    if (acceptedvalues.indexOf(component) == -1) {
+      return undefined;
+    }
+    if (values.length > 1 && isNaN(Number(values[1].toString().split(" ").join("")))) {
+      return undefined;
+    }
+    const translatedvalue = [
+      'getUTCFullYear',
+      'getUTCMonth',
+      'getUTCDate',
+      'getUTCDay',
+      'getUTCHours',
+      'getUTCMinutes',
+      'getUTCSeconds',
+      'getUTCMilliseconds',
+      'getTime'
+    ];
+    let finaldate = new Date();
+    if (values.length > 1) {
+      let customdate = values[1].toString().split(' ');
+      customdate = customdate.map(Number);
+      if (customdate.length == 1) {
+        finaldate = new Date(customdate[0]);
+      }else{
+        while (customdate.length<7) {
+          customdate[customdate.length] = 0;
+        }
+        finaldate = new Date(Date.UTC(customdate[0], customdate[1] - 1, customdate[2], customdate[3], customdate[4], customdate[5], customdate[6]));
+      }
+    }
+    let finalcomponent = acceptedvalues.indexOf(component)
+    if (translatedvalue[finalcomponent] === 'getUTCMonth') {
+      return finaldate[translatedvalue[finalcomponent]]() + 1;
+    }
+    return finaldate[translatedvalue[finalcomponent]]();
+  }
+
   isVariableInvalid(key) {
     return key.match(/[^a-zA-Z0-9_$]/)
   }
@@ -1502,6 +1568,7 @@ class EventHandler {
       "$isLoggedIn": true,
       "$getEquipId": true,
       "$getBuildingType": true,
+      "$getEntityType": true,
       "$getDay": true,
       "$getHour": true,
       "$getContent": true,
@@ -1524,7 +1591,8 @@ class EventHandler {
       "$getValuePosition": true,
       "$getValueLength": true,
       "$getPushedValue": true,
-      "$getRemovedValue": true
+      "$getRemovedValue": true,
+      "$getDate": true,
     }
   }
 
