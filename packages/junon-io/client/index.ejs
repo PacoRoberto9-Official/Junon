@@ -422,14 +422,18 @@
                 const section = function_table[key].toSorted(function(a, b) {
                     return a[0].localeCompare(b[0]);
                 })
-                section_html += `<tr>
-                    <th class='function_header' colspan="3">` + key.toString().split("_").join(" ") + `</th>
-                    </tr>
-                    <tr>
-                        <th><%= t('Function') %></th>
-                        <th><%= t('Arguments') %></th>
-                        <th><%= t('Returns') %></th>
-                    </th>
+                section_html += `
+                    <thead>
+                        <tr>
+                            <th class='function_header' colspan="3"><button onclick="function_table_collapse(this)">></button>` + key.toString().split("_").join(" ") + `</th>
+                        </tr>
+                    </thead>
+                    <tbody class='functions_table_hidden'>
+                        <tr>
+                            <th><%= t('Function') %></th>
+                            <th><%= t('Arguments') %></th>
+                            <th><%= t('Returns') %></th>
+                        </tr>
                 `;
                 
                 for (const function_name of Object.keys(section)) {
@@ -441,10 +445,26 @@
                         </tr>
                     `;
                 }
+                section_html += `</tbody>`;
             }
             section_html += '</table>';
             document.getElementById('functions_table_wrapper').innerHTML += section_html;
-        };
+        }
+
+        function function_table_collapse(el) {
+            const table_body = el.parentElement.parentElement.parentElement.nextElementSibling;
+            const el_with_scrollbar = document.querySelector('.command_block_tab_content');
+
+            console.log(el_with_scrollbar.scrollTop + el.getBoundingClientRect().top)
+            if (table_body.className === 'functions_table_hidden') {
+                table_body.className = "";
+                el.innerHTML = 'v';
+                el_with_scrollbar.scrollTop = el.getBoundingClientRect().top + el_with_scrollbar.scrollTop - el_with_scrollbar.getBoundingClientRect().top;
+            } else {
+                table_body.className = "functions_table_hidden";
+                el.innerHTML = '>';
+            }
+        }
     </script>
     <script src="/<%= assetPath('vendor.js') %>"></script>
     <script src="/<%= assetPath('app.js') %>"   ></script>

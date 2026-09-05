@@ -34,8 +34,10 @@ class MolotovCocktail extends BaseProjectile {
 
     let structures = this.getContainer().structureMap.search(this.getFlameBoundingBox())
     structures.forEach((structure) => {
-      let level = Math.floor(Math.random() * 4)
-      structure.addFire(structure.getEffectLevel("fire") + level, { forceFlamable: true })
+      if (!structure.isOwnedBy(this.owner)) {
+        let level = Math.floor(Math.random() * 4)
+        structure.addFire(structure.getEffectLevel("fire") + level, { forceFlamable: true })
+      }
       alreadyOnFire.push([structure.getRow(), structure.getCol()])
     })
 
@@ -49,8 +51,10 @@ class MolotovCocktail extends BaseProjectile {
         }
       }
       if (!onStructureOrPlatform) {
-        let level = Math.floor(Math.random() * 4)
-        platform.addFire(platform.getEffectLevel("fire") + level, { forceFlamable: true })
+        if (!platform.isOwnedBy(this.owner)) {
+          let level = Math.floor(Math.random() * 4)
+          platform.addFire(platform.getEffectLevel("fire") + level, { forceFlamable: true })
+        }
         alreadyOnFire.push([platform.getRow(), platform.getCol()])
       }
     })

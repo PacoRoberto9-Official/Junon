@@ -8683,6 +8683,10 @@ body.imposter_mode .minigame_poster {
     margin: 0px;
 }
 
+.functions_table_hidden {
+    display: none !important;
+}
+
 .function_table {}
 
 .function_table tr {}
@@ -8690,6 +8694,17 @@ body.imposter_mode .minigame_poster {
 .function_table td {
     border: solid 1px #333;
     padding: 2px 5px;
+}
+
+.function_table tbody {
+    display: initial;
+}
+
+.function_table button {
+    color: #00b9ff;
+    background-color: #00000000;
+    border: none;
+    cursor: pointer;
 }
 
 .function_name {
