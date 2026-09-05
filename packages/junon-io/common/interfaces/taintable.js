@@ -260,7 +260,7 @@ Taintable.prototype = {
 
   addEffect(effectName, customduration) {
     if (effectName === 'poison') return this.addPoison(customduration)
-    if (effectName === 'fire') return this.addFire(undefined, undefined, customduration)
+    if (effectName === 'fire') return this.addFire(undefined, {forceFlamable: true}, customduration)
     if (effectName === 'drunk') return this.addDrunk(customduration)
     if (effectName === 'fear') return this.addFear(customduration)
     if (effectName === 'paralyze') return this.addParalyze(customduration)
