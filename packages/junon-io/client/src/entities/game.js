@@ -1460,15 +1460,17 @@ class Game {
   openInGameMenu() {
     document.querySelector("#welcome_container").classList.add("in_game")
     document.querySelector("#welcome_container").style.display = 'block'
+    document.querySelector("#arrow_container").style.visibility = "hidden"
 
     this.main.showMainMenu()
     this.hideActionTooltip()
     this.hideGameHuds()
-    closeEntityMenu()
+    this.closeEntityMenu()
   }
 
   closeInGameMenu() {
     this.main.onBackMainMenuBtnClick()
+    document.querySelector("#arrow_container").style.visibility = "visible"
 
     document.querySelector("#welcome_container").classList.remove("in_game")
     document.querySelector("#welcome_container").style.display = 'none'
@@ -3245,6 +3247,13 @@ console.log(options)
     }
   }
   
+  isColor(strColor) {
+  const s = new Option().style
+  s.color = strColor
+  return s.color !== ''
+}
+
+
   setArrows() {
     let NewArrows = JSON.parse(this.arrowList || "{}")
 
@@ -3254,7 +3263,7 @@ console.log(options)
       }
       let entityFoundById = this.sector.getEntity(value.pointTo)
       if (entityFoundById) {
-      this.updatePlayerArrow(this.player,entityFoundById.getX(),entityFoundById.getY(),document.querySelector('#setarrowcommand'+key))
+      this.updatePlayerArrow(this.player,entityFoundById.getX(),entityFoundById.getY(),document.querySelector('#setarrowcommand'+key),value.color||"#ffffff",value.tooltip||"")
     }
     }
     document.querySelectorAll('#arrow_container > div').forEach((div, index) => {
@@ -3269,67 +3278,80 @@ createPlayerArrow(player,arrowId) {
     arrow.className = 'setarrowcommand'
     arrow.id = 'setarrowcommand'+arrowId
 
+    let tooltip = document.createElement('div')
+    tooltip.className = 'arrow-tooltip'
+    arrow.appendChild(tooltip)
+
     let container = document.getElementById('arrow_container') || document.body
     container.appendChild(arrow)
 
-    let screenX = window.innerWidth / 2;
-    let screenY = window.innerHeight / 2;
+    let screenX = window.innerWidth / 2
+    let screenY = window.innerHeight / 2
 
-    arrow.style.transform = `translate3d(${screenX}px, ${screenY}px, 0) rotate(${0}deg)`;
+    arrow.style.transform = `translate3d(${screenX}px, ${screenY}px, 0) rotate(${0}deg)`
   }
-updatePlayerArrow(player, targetX, targetY, arrow) {
-    arrow.style.display = 'block';
+updatePlayerArrow(player, targetX, targetY, arrow,arrowColor,arrowText) {
+let realColor = arrowColor
+if (this.isColor(arrowColor)) {
+  realColor = arrowColor
+} else realColor = "#ffffff"
 
-    let screenX = window.innerWidth / 2;
-    let screenY = window.innerHeight / 2;
+    arrow.style.display = 'block'
+document.querySelector("#"+arrow.id+' .arrow-tooltip').innerText = arrowText || ""
+document.querySelector("#"+arrow.id+' .arrow-tooltip').style.color = realColor
 
-    let playerElement = player.el || player.spriteEl || document.querySelector('.player'); 
+    let screenX = window.innerWidth / 2
+    let screenY = window.innerHeight / 2
+
+    let playerElement = player.el || player.spriteEl || document.querySelector('.player') 
     
     if (playerElement) {
-        let rect = playerElement.getBoundingClientRect();
-        screenX = rect.left + (rect.width / 2);
-        screenY = rect.top + (rect.height / 2);
+        let rect = playerElement.getBoundingClientRect()
+        screenX = rect.left + (rect.width / 2)
+        screenY = rect.top + (rect.height / 2)
     } else {
-        let canvas = document.getElementById('game-canvas') || document.querySelector('canvas');
+        let canvas = document.getElementById('game-canvas') || document.querySelector('canvas')
         if (canvas) {
-            let rect = canvas.getBoundingClientRect();
-            screenX = rect.left + (rect.width / 2);
-            screenY = rect.top + (rect.height / 2);
+            let rect = canvas.getBoundingClientRect()
+            screenX = rect.left + (rect.width / 2)
+            screenY = rect.top + (rect.height / 2)
         }
     }
 
-    let worldPlayerX = player.getX ? player.getX() : player.x;
-    let worldPlayerY = player.getY ? player.getY() : player.y;
+    let worldPlayerX = player.getX ? player.getX() : player.x
+    let worldPlayerY = player.getY ? player.getY() : player.y
 
-    let deltaX = targetX - worldPlayerX;
-    let deltaY = targetY - worldPlayerY;
-    let angle = Math.atan2(deltaY, deltaX); 
+    let deltaX = targetX - worldPlayerX
+    let deltaY = targetY - worldPlayerY
+    let angle = Math.atan2(deltaY, deltaX) 
 
-    let offsetRadius = 45; 
-    let offsetX = Math.cos(angle) * offsetRadius;
-    let offsetY = Math.sin(angle) * offsetRadius;
+    let offsetRadius = 70
+    let offsetX = Math.cos(angle) * offsetRadius
+    let offsetY = Math.sin(angle) * offsetRadius
 
-    let halfArrowSize = 12; 
+    let halfArrowSize = 12 
 
-    let targetXPos = screenX + offsetX - halfArrowSize;
-    let targetYPos = screenY + offsetY - halfArrowSize;
-    let targetDegrees = angle * (180 / Math.PI);
+    let targetXPos = screenX + offsetX - halfArrowSize
+    let targetYPos = screenY + offsetY - halfArrowSize
+    let targetDegrees = angle * (180 / Math.PI)
 
-    if (arrow.currentX === undefined) arrow.currentX = targetXPos;
-    if (arrow.currentY === undefined) arrow.currentY = targetYPos;
-    if (arrow.currentDeg === undefined) arrow.currentDeg = targetDegrees;
+    if (arrow.currentX === undefined) arrow.currentX = targetXPos
+    if (arrow.currentY === undefined) arrow.currentY = targetYPos
+    if (arrow.currentDeg === undefined) arrow.currentDeg = targetDegrees
 
-    const ease = 0.3; 
+    const ease = 0.5
 
-    let diffDeg = targetDegrees - arrow.currentDeg;
-    while (diffDeg < -180) diffDeg += 360;
-    while (diffDeg > 180) diffDeg -= 360;
+    let diffDeg = targetDegrees - arrow.currentDeg
+    while (diffDeg < -180) diffDeg += 360
+    while (diffDeg > 180) diffDeg -= 360
 
-    arrow.currentX += (targetXPos - arrow.currentX) * ease;
-    arrow.currentY += (targetYPos - arrow.currentY) * ease;
-    arrow.currentDeg += diffDeg * ease;
+    arrow.currentX += (targetXPos - arrow.currentX) * ease
+    arrow.currentY += (targetYPos - arrow.currentY) * ease
+    arrow.currentDeg += diffDeg * ease
 
-    arrow.style.transform = `translate3d(${arrow.currentX}px, ${arrow.currentY}px, 0) rotate(${arrow.currentDeg}deg)`;
+    arrow.style.transform = `translate3d(${arrow.currentX}px, ${arrow.currentY}px, 0) rotate(${arrow.currentDeg}deg)`
+arrow.style.setProperty('--arrow-rotation', arrow.currentDeg+"deg");
+arrow.style.setProperty('--arrow-color',realColor)
 }
 
 
@@ -3476,7 +3498,6 @@ updatePlayerArrow(player, targetX, targetY, arrow) {
 
   renderHour(data) {
     if (!data.hasOwnProperty("hour")) return
-    console.log(this.isLightingCustom)
     if (this.hour !== data.hour) {
       this.hour = data.hour
       this.onHourChanged()

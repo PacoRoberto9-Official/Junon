@@ -7,10 +7,10 @@ class Arrow extends BaseCommand {
   getUsage() {
     return [
       "Creates an around locked to the player that points to the specified direction",
-      "/arrow set [arrow_id] [player] [point_to] [color]",
+      "/arrow set [arrow_id] [player] [point_to] [tooltip] [color]",
       "/arrow remove [arrow_id] [player]",
       "/arrow clear [player]",
-      "ex: /arrow set 1 kuroro 1234 red",
+      "ex: /arrow set 1 kuroro 1234 Slime red",
     ]
   }
 
@@ -53,8 +53,9 @@ class Arrow extends BaseCommand {
         selectedPlayers.forEach(ply => {
           if (!this.game.playerArrows[ply.name]) {this.game.playerArrows[ply.name] = {}}
           this.game.playerArrows[ply.name][args[1]] = {
-            pointTo:args[3],
-            color:args[4]
+            pointTo:entityById.id,
+            tooltip:args[4],
+            color:args[5]
           }
         });
         break

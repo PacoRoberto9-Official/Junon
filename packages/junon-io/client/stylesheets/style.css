@@ -1645,20 +1645,68 @@ html[lang='ja'] .stats_type {
     opacity: 1;
     padding: 5px 10px;
 }
+
 .setarrowcommand {
     position: absolute;
     width: 24px;
     height: 24px;
-    background-image: url('./../assets/images/svg/range_icon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    pointer-events: none;
+    pointer-events: auto; /* Required to register hover */
     z-index: 0;
-    
     transform-origin: center center; 
     display: none;
+
+    --arrow-color: white; 
+    --arrow-outline-color: black; 
 }
+.setarrowcommand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--arrow-outline-color);
+    -webkit-mask: url('./../assets/images/setarrowcommand.png') center/contain no-repeat;
+    mask: url('./../assets/images/setarrowcommand.png') center/contain no-repeat;
+}
+.setarrowcommand::after {
+    content: '';
+    position: absolute;
+    top: 5px;  
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    background-color: var(--arrow-color); 
+    -webkit-mask: url('./../assets/images/setarrowcommand.png') center/contain no-repeat;
+    mask: url('./../assets/images/setarrowcommand.png') center/contain no-repeat;
+}
+.arrow-tooltip {
+    position: absolute;
+    
+    top: 50%;
+    left: 50%;
+    
+    transform: rotate(calc(var(--arrow-rotation, 0deg) * -1)) translate(-50%, 15px);
+    transform-origin: 0 0;
+    
+    white-space: nowrap;
+    font-family: cc;
+    font-size: 15px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 10;
+}
+.setarrowcommand:hover .arrow-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
 #caption_center {
     position: fixed;
     top: 50%;
