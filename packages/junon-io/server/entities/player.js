@@ -500,12 +500,15 @@ class Player extends BaseEntity {
     this.resumeTime = Date.now()
 
     this.joinTimestamp = this.game.timestamp
+    this.prefixesList = {}
 
     if (data.name) {
       this.name = data.name
     } else {
       this.name = this.sanitize(data.username)
     }
+
+    if (this.game.arrowList) {this.game.arrowList[this.name] = {}}
 
     if (data.uid) {
       this.uid = data.uid
@@ -3124,6 +3127,11 @@ class Player extends BaseEntity {
     this.state = 0
     this.experience = 0
     this.score = 0
+  }
+
+  setArrow() {
+    this.arrowList = JSON.stringify(this.game.playerArrows[this.name])
+    this.onStateChanged("arrowList")
   }
 
   getTurnSpeed() {

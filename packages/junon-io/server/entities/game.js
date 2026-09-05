@@ -1739,6 +1739,9 @@ class Game {
         if (player.isCameraMode()) {
           this.gameInfo["camera"] = player.getCamera().toJson()
         }
+        if (this.playerArrows) {
+        this.gameInfo["arrowList"] = JSON.stringify(this.playerArrows[player.name]||{})
+        }
 
         this.getSocketUtil().emit(player.socket, "GameState", this.gameInfo)
       }

@@ -1,5 +1,6 @@
 const BaseCommand = require("./base_command")
 const Constants = require("../../common/constants")
+const BaseEntity = require("../entities/base_entity")
 
 class Arrow extends BaseCommand {
 
@@ -19,22 +20,39 @@ class Arrow extends BaseCommand {
 
   perform(caller, args) {
     if (!this.game.playerArrows) {this.game.playerArrows = {}}
+    
+    let subcommand = args[0]
+
     let selectedPlayers = this.getPlayersBySelector(args[2])
+    if (subcommand == "clear") {
+      selectedPlayers = this.getPlayersBySelector(args[1])
     if (selectedPlayers.length === 0) {
       caller.showChatError("No such player")
       return
     }
+    } else {
+    if (selectedPlayers.length === 0) {
+      caller.showChatError("No such player")
+      return
+    }
+  }
     
-    let subcommand = args[0]
     switch(subcommand) {
       case "set": 
-      if (!args[1]) {
+        if (!args[1]) {
         caller.showChatError("No Arrow ID")
           return
         }
+        
+        let entityById = this.game.getEntityByNameOrId(args[3])
+        if (!entityById) {
+          caller.showChatError(`Invalid entity ${args[3]} `)
+          return
+        }
+
         selectedPlayers.forEach(ply => {
-          if (!this.game.playerArrows[ply]) {this.game.playerArrows[ply] = {}}
-          this.game.playerArrows[ply][args[1]] = {
+          if (!this.game.playerArrows[ply.name]) {this.game.playerArrows[ply.name] = {}}
+          this.game.playerArrows[ply.name][args[1]] = {
             pointTo:args[3],
             color:args[4]
           }
@@ -45,8 +63,10 @@ class Arrow extends BaseCommand {
         caller.showChatError("No Arrow ID")
           return
         }
-        if (!this.game.playerArrows[ply]) {this.game.playerArrows[ply] = {}}
-        delete this.game.playerArrows[ply][args[1]]
+        selectedPlayers.forEach(ply => {
+ if (!this.game.playerArrows[ply.name]) {this.game.playerArrows[ply] = {}}
+        delete this.game.playerArrows[ply.name][args[1]]
+        })
         break
       }
       case "clear": 
@@ -54,6 +74,9 @@ class Arrow extends BaseCommand {
           delete this.game.playerArrows[ply.name]
         })
         break
+ selectedPlayers.forEach(ply => {
+        ply.setArrows()
+    })
  }
   }
 

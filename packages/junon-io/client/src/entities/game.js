@@ -95,6 +95,7 @@ class Game {
     this.errorTitle = document.querySelector('#error_title')
     this.captionCenter = document.querySelector('#caption_center')
     this.captionFooter = document.querySelector('#caption_footer')
+    this.arrowContainer = document.querySelector('#arrow_container')
     this.shipStatSpeed = document.querySelector('.ship_stat_speed')
     this.shipStatHealth = document.querySelector('.ship_stat_health')
     this.shipStatShield = document.querySelector('.ship_stat_shield')
@@ -3223,6 +3224,8 @@ console.log(options)
     
     this.timestamp = data.timestamp
 
+    this.arrowList = data.arrowList
+    this.setArrows()
     this.markPacketTick()
     this.recordUpstreamRate()
     this.renderTickDuration(data)
@@ -3241,6 +3244,95 @@ console.log(options)
       this.renderDay(data)
     }
   }
+  
+  setArrows() {
+    let NewArrows = JSON.parse(this.arrowList || "{}")
+
+    for (const [key, value] of Object.entries(NewArrows)) {
+      if (!document.querySelector('#setarrowcommand'+key)) {
+        this.createPlayerArrow(this.player,key)
+      }
+      let entityFoundById = this.sector.getEntity(value.pointTo)
+      if (entityFoundById) {
+      this.updatePlayerArrow(this.player,entityFoundById.getX(),entityFoundById.getY(),document.querySelector('#setarrowcommand'+key))
+    }
+    }
+    document.querySelectorAll('#arrow_container > div').forEach((div, index) => {
+      if (!NewArrows[parseInt(div.id.slice(15))]) {
+        document.getElementById(div.id).remove()
+      }
+    });
+  }
+
+createPlayerArrow(player,arrowId) {
+    let arrow = document.createElement('div')
+    arrow.className = 'setarrowcommand'
+    arrow.id = 'setarrowcommand'+arrowId
+
+    let container = document.getElementById('arrow_container') || document.body
+    container.appendChild(arrow)
+
+    let screenX = window.innerWidth / 2;
+    let screenY = window.innerHeight / 2;
+
+    arrow.style.transform = `translate3d(${screenX}px, ${screenY}px, 0) rotate(${0}deg)`;
+  }
+updatePlayerArrow(player, targetX, targetY, arrow) {
+    arrow.style.display = 'block';
+
+    let screenX = window.innerWidth / 2;
+    let screenY = window.innerHeight / 2;
+
+    let playerElement = player.el || player.spriteEl || document.querySelector('.player'); 
+    
+    if (playerElement) {
+        let rect = playerElement.getBoundingClientRect();
+        screenX = rect.left + (rect.width / 2);
+        screenY = rect.top + (rect.height / 2);
+    } else {
+        let canvas = document.getElementById('game-canvas') || document.querySelector('canvas');
+        if (canvas) {
+            let rect = canvas.getBoundingClientRect();
+            screenX = rect.left + (rect.width / 2);
+            screenY = rect.top + (rect.height / 2);
+        }
+    }
+
+    let worldPlayerX = player.getX ? player.getX() : player.x;
+    let worldPlayerY = player.getY ? player.getY() : player.y;
+
+    let deltaX = targetX - worldPlayerX;
+    let deltaY = targetY - worldPlayerY;
+    let angle = Math.atan2(deltaY, deltaX); 
+
+    let offsetRadius = 45; 
+    let offsetX = Math.cos(angle) * offsetRadius;
+    let offsetY = Math.sin(angle) * offsetRadius;
+
+    let halfArrowSize = 12; 
+
+    let targetXPos = screenX + offsetX - halfArrowSize;
+    let targetYPos = screenY + offsetY - halfArrowSize;
+    let targetDegrees = angle * (180 / Math.PI);
+
+    if (arrow.currentX === undefined) arrow.currentX = targetXPos;
+    if (arrow.currentY === undefined) arrow.currentY = targetYPos;
+    if (arrow.currentDeg === undefined) arrow.currentDeg = targetDegrees;
+
+    const ease = 0.3; 
+
+    let diffDeg = targetDegrees - arrow.currentDeg;
+    while (diffDeg < -180) diffDeg += 360;
+    while (diffDeg > 180) diffDeg -= 360;
+
+    arrow.currentX += (targetXPos - arrow.currentX) * ease;
+    arrow.currentY += (targetYPos - arrow.currentY) * ease;
+    arrow.currentDeg += diffDeg * ease;
+
+    arrow.style.transform = `translate3d(${arrow.currentX}px, ${arrow.currentY}px, 0) rotate(${arrow.currentDeg}deg)`;
+}
+
+
 
   onUpdateStats(data) {
     if (!this.player) return

@@ -964,6 +964,7 @@ message GameState {
   uint32 memory = 5;
   Camera camera = 6;
   uint32 isLightingCustom = 7;
+  string arrowList = 8;
 }
 
 message InventoryChanged {

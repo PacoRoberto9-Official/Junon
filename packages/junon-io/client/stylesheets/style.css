@@ -1645,6 +1645,20 @@ html[lang='ja'] .stats_type {
     opacity: 1;
     padding: 5px 10px;
 }
+.setarrowcommand {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-image: url('./../assets/images/svg/range_icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 0;
+    
+    transform-origin: center center; 
+    display: none;
+}
 #caption_center {
     position: fixed;
     top: 50%;
