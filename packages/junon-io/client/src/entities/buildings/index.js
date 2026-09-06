@@ -26,6 +26,7 @@ Buildings.Production.ChemistryStation = require("./chemistry_station")
 Buildings.Production.MiningDrill = require("./mining_drill")
 Buildings.Production.DeepDrill = require("./deep_drill")
 Buildings.Production.AmmoPrinter = require("./ammo_printer")
+Buildings.Production.CircuitBoardPrinter = require("./circuit_board_printer")
 
 // structures
 
@@ -83,7 +84,7 @@ for (let name in Constants.Walls) {
 
 Buildings.Furnitures.Bed = require("./bed")
 Buildings.Furnitures.Sign = require("./sign")
-
+Buildings.Furnitures.NeonSign = require("./neon_sign")
 Buildings.Furnitures.Table = require("./table")
 Buildings.Furnitures.LargeTable = require("./large_table")
 Buildings.Furnitures.WoodTable = require("./wood_table")
@@ -93,6 +94,9 @@ Buildings.Furnitures.SlaversTable = require("./slavers_table")
 Buildings.Furnitures.Chair = require("./chair")
 Buildings.Furnitures.WoodChair = require("./wood_chair")
 Buildings.Furnitures.Cage = require("./cage")
+Buildings.Furnitures.Window = require("./window")
+Buildings.Furnitures.ArmoredWindow = require("./armored_window")
+Buildings.Furnitures.LowWall = require("./low_wall")
 Buildings.Furnitures.Television = require("./television")
 Buildings.Furnitures.Terminal = require("./terminal")
 Buildings.Furnitures.Pot = require("./pot")

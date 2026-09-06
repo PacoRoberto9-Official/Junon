@@ -277,6 +277,11 @@ enum BuildingType {
   Bayonet = 283;
   Kukri = 284;
   SmallWoodTable = 285;
+  LowWall = 286;
+  NeonSign = 287;
+  CircuitBoardPrinter = 288;
+  Window = 289;
+  ArmoredWindow = 290;
 }
 
 enum TerrainType {
