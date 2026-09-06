@@ -23,10 +23,6 @@ class Caption extends BaseCommand {
   }
 
   perform(player, args) {
-    let row
-    let col
-    let entityToTeleport
-
     let selector = args[0]
     let subcommand
     let text

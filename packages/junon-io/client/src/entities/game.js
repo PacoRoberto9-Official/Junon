@@ -2887,7 +2887,7 @@ class Game {
     textContent.innerText = msg
     textContent.className = ""
 
-    if (options.isTitle) {
+    if (options.isTitle && !options.isWarning && !options.isSuccess) {
       if (options.color) {
         textContent.style.color = options.color
       } else {
@@ -2913,7 +2913,7 @@ class Game {
       textContent.classList.add("success")
     }
 
-    if (options.transparent) {
+    if (options.transparent && !options.success && !options.warning) {
       textContent.classList.add("transparent")
     }
 
