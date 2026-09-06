@@ -86,6 +86,7 @@ class RangeEquipment extends HandEquipment {
     if (this.isObstructed(user, sourcePoint)) {
       return
     }
+    
 
     const projectile = this.getProjectileType()
     

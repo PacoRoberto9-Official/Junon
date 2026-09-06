@@ -282,6 +282,8 @@ enum BuildingType {
   CircuitBoardPrinter = 288;
   Window = 289;
   ArmoredWindow = 290;
+  Revitalizer = 291;
+  Dispenser = 292;
 }
 
 enum TerrainType {
