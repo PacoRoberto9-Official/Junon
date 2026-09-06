@@ -7,7 +7,6 @@ class Effect extends BaseCommand {
     return [
       "Gives an effect to an entity",
       "/effect give [player|entity_id] [effectname]",
-      "/effect give [player|entity_id] [effectname] [duration]",
       "/effect clear [player|entity_id] [effectname]",
       "/effect clear [player]",
       "ex: " + this.getAllowedEffects().join(", ")
@@ -46,7 +45,7 @@ class Effect extends BaseCommand {
         return
       }
       
-      let duration = parseFloat(args[3]) || undefined
+      let duration = undefined
 
       entities.forEach((entity) => {
         if (typeof entity.addEffect === 'function') {

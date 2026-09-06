@@ -1,39 +1,40 @@
 {
   "version": "v0.7.9.alpha",
-  "date": "September 8, 2026",
-  "title": "QOL Update #3 - Perrito and akrolpative",
+  "date": "September 3, 2026",
+  "title": "Monthly Update by BigT",
   "content": {
-    "bugs": [
-      "'/score set' will no longer trigger ScoreChanged with $previous and $current displaying undefined.",
-      "Fixed '/spawncorpse' not spawning correctly with 'row, col' arguments.",
-      "Fixed the visual bug of the timer being at tick 0.05 when it should be at tick 1 when the timer action is created.",
-      "Fixed command block example typos.",
-      "Fixed the description of the molotov cocktail to be clearer.",
-      "$getInventoryItemCount() now works on structures.",
-      "$getName() will now accept $player as a parameter for consistency.",
-      "The molotov cocktail will no longer affect floors of the same team on impact, and will affect structures, platforms, and rock."
-    ],
     "features": [
-      "Changelog full re-design",
-      "Added new /arrow command",
-      "Added new subcommands for /caption, /dirt and /blood",
-      "Added new subcommand lighting for /setting to set lighting level from 0 to 100",
-      "Added consistency along with a few more examples to functions page in the command blocks menu.",
-      "/caption now allows hex colors or color values, example: /caption title \u00a7red test || /caption title \u00a7#ffaa33 test",
-      "Added the functions $getValuePosition, $getValueLength, $getPushedValue, $getDate(), $getEntityDistance, and $getRemovedValue.",
-      "Replaced $getBuildingType() with $getEntityType() because it might be too confusing, making it obsolete, $getBuildingType() will still be usable for old games, but it will not be included in the command block functions to promote use of $getEntityType().",
-      "$getBuildingType() and $getEntityType() will now accept $player names and return Player .",
-      "Added the [duration] parameter to /effect.",
-      "New ordering and collapsible sections added in command blocks, with functions being sorted in alphabetical order for cleanliness.",
-      "The (large) oxygen tank will now hold 2.5 times as much oxygen so that it is better than the small oxygen tank.",
-      "Molotov cocktail can only be crafted in the craft menu.",
-      "Virtually all entities should now be able to be set on fire through /effect."
+      "Gave humans hand and armor equip slot",
+      "-Made it so you can set armor and hand of human mob with /setequipment command",
+      "-Humans can now equip armors (cosmetic only for now)",
+      "-Set human mob space suit color with /suitcolor",
+      "Made projectiles go through cage and over all tables (more things might have this in the future now)",
+      "Added low wall that can be shot over but not walked through",
+      "Added window and armored window",
+      "Added circuit board printer which prints circuit boards from copper bars and glass at high efficiency",
+      "-Circuit boards now cost 5 copper bars and 5 glass bars in furnace (subject to balancing)",
+      "-Circuit boards now sell for 30 gold, making them a higher value item",
+      "Added neon signs",
+      "Added /setstructure command",
+      "Mobs are now hid in FOV mode",
+      "Floors are now rotatable which will make cool patterns accessible in non-peaceful gamemode",
+      "FOV is now enabled in hardcore mode",
+      "Enabled /level command and added $getLevel($entityId) function",
+      "Added GoalAchieved trigger",
+      "Raised speed limit in /speed and /stat",
+      "From PoTATo_0",
+      "Overclock can now be toggled on and off in peaceful mode. It is off by default",
+      "Solar panels have a reduced capacity of 500W now and their production is 25 during the day and -50 at night"
     ],
-    "Miscellaneous": [
-      "Changed the code of /spawncorpse to behave more similarly to /spawnmob.",
-      "Changed $getX() and $getY() to stop using magic numbers.",
-      "Changed the method of adding more command block examples.",
-      "Made the duration constants identify themselves for consistency in base_entity.js for consuming effects."
+    
+    "bugs": [
+      "Fix guns shooting over buildings (courtesy of Wahlee)",
+      "Fill building no longer overrides floor and terrain",
+      "Centered shower sprite",
+      "Fixed oil refinery sprite being the wrong number of pixels",
+      "Fixed small wooden table sprite",
+      "Removed throwable projectiles exploding on collision",
+      "Consecutive button presses of the same type now trigger PlayerKeyboard (by PoTATo_0)"
     ]
   }
 }

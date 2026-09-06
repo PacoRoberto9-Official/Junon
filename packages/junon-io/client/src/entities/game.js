@@ -3238,7 +3238,7 @@ console.log(options)
     this.timestamp = data.timestamp
 
     this.arrowList = data.arrowList
-    this.setArrows()
+
     this.markPacketTick()
     this.recordUpstreamRate()
     this.renderTickDuration(data)
@@ -3275,6 +3275,8 @@ console.log(options)
       let entityFoundById = this.sector.getEntity(value.pointTo)
       if (entityFoundById) {
       this.updatePlayerArrow(this.player,entityFoundById.getX(),entityFoundById.getY(),document.querySelector('#setarrowcommand'+key),value.color||"#ffffff",value.tooltip||"",value.size||"24px",value.isbg||"true")
+    } else {
+      document.querySelector('#setarrowcommand'+key).style.opacity = "0"
     }
     }
     document.querySelectorAll('#arrow_container > div').forEach((div, index) => {
@@ -5431,6 +5433,8 @@ arrow.style.setProperty('--arrow-color',realColor)
       this.prevPlayerPosX = cameraFocusTarget.getX()
       this.prevPlayerPosY = cameraFocusTarget.getY()
     }
+
+    this.setArrows()
 
     this.applyMyInputs()
     this.sector.executeTurn()
