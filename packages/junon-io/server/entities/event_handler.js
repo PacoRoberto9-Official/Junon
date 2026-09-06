@@ -1480,6 +1480,13 @@ class EventHandler {
     return finaldate[translatedvalue[finalcomponent]]();
   }
 
+  getEntityDistance(entityId, entityId2) {
+    const entity_coords = [this.getX(entityId), this.getY(entityId)];
+    const entity2_coords = [this.getX(entityId2), this.getY(entityId2)];
+
+    return helper.distance(entity_coords[0], entity_coords[1], entity2_coords[0], entity2_coords[1]);
+  }
+
   isVariableInvalid(key) {
     return key.match(/[^a-zA-Z0-9_$]/)
   }
@@ -1593,6 +1600,7 @@ class EventHandler {
       "$getPushedValue": true,
       "$getRemovedValue": true,
       "$getDate": true,
+      "$getEntityDistance": true,
     }
   }
 

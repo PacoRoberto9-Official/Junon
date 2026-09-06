@@ -138,6 +138,11 @@
                         `$player/$entityId`,
                         `Returns the angle of the specified entity or player. Ex. /chat @a $getAngle($entityId)`,
                     ],
+                    [
+                        '$getEntityDistance',
+                        '$player/$entityId, $player/$entityId',
+                        `Returns the exact distance between two entities. Ex. /chat @a the distance between $entityId and $player is $getEntityDistance($player,$entityId)`,
+                    ],
                 ],
                 Entity_Properties: [
                     [   `$getGold`,
