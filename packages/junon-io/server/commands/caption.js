@@ -18,7 +18,7 @@ class Caption extends BaseCommand {
   }
 
   isSubCommand(text) {
-    return ["title", "subtitle", "footer", "center, error, success"].indexOf(text) !== -1
+    return ["title", "subtitle", "footer", "center","error", "success"].indexOf(text) !== -1
   }
 
   perform(player, args) {
