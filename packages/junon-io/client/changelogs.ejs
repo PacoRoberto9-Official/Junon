@@ -113,6 +113,13 @@
         text-align: center;
         text-transform: uppercase;
         }
+        .startOfList {
+            font-size: 20px;
+            list-style-type: none;
+            margin: 0px 0px 5px 0px;
+            color: white;
+            text-align: left;
+        }
 
     </style>
 </head>
@@ -123,23 +130,17 @@
         <% for (let i = 0; i < changeLogs.length; i++) { %>
             <% let changeLog = changeLogs[i] %>
             <div class="update">
-                <p class='datevercontainer'><span class="date""><%= changeLog.date %></span><span class="version"><%= changeLog.version %></span></p>
+                <p class='datevercontainer'><span class="date"><%= changeLog.date %></span><span class="version"><%= changeLog.version %></span></p>
                 <p class='title'><%= changeLog.title %></p>
-                <% if (changeLog.content.features.length > 0) { %>
-                    <ul>
-                        <% for (let i = 0; i < changeLog.content.features.length; i++) { %>
-                            <% let feature = changeLog.content.features[i] %>
-                            <li><%= feature %></li>                    
-                        <% } %>
-                    </ul>
-                <% } %>
-                <% if (changeLog.content.bugs.length > 0) { %>
-                    <ul>
-                        <% for (let i = 0; i < changeLog.content.bugs.length; i++) { %>
-                            <% let bug = changeLog.content.bugs[i] %>
-                            <li><%= bug %></li>                    
-                        <% } %>
-                    </ul>
+                <% for (let category in changeLog.content) { %>
+                    <% if (Array.isArray(changeLog.content[category]) && changeLog.content[category].length > 0) { %>
+                        <ul>
+                            <li class="startOfList"><%= category.charAt(0).toUpperCase() + category.slice(1) %></li>
+                            <% for (let i = 0; i < changeLog.content[category].length; i++) { %>
+                                <li><%= changeLog.content[category][i] %></li>
+                            <% } %>
+                        </ul>
+                    <% } %>
                 <% } %>
             </div>
         <% } %>

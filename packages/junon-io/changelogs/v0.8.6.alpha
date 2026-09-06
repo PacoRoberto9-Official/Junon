@@ -4,7 +4,6 @@
   "title": "Monthly Update by BigT",
   "content": {
     "features": [
-      "Update by BigTforLife",
       "Gave humans hand and armor equip slot",
       "-Made it so you can set armor and hand of human mob with /setequipment command",
       "-Humans can now equip armors (cosmetic only for now)",
