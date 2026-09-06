@@ -87,6 +87,7 @@ class RangeEquipment extends HandEquipment {
       return
     }
     
+
     const projectile = this.getProjectileType()
     
     const destination = this.getDestination(user)

@@ -131,14 +131,29 @@ class BaseBuilding extends BaseEntity {
 
   getPlacer() {
     if (!this.placer) return null
-    if (this.placer.isPlayerData()) {
-      let playerId = this.placer.data.id
-      let player = this.game.players[playerId]
-      if (player) return player
-    } else {
+
+    if (
+      typeof this.placer.isPlayerData === "function" &&
+      this.placer.isPlayerData()
+    ) {
+      const playerId = this.placer.data.id
+      return this.game.players[playerId] || null
+    }
+
+    if (
+      typeof this.placer.isPlayer === "function" &&
+      this.placer.isPlayer()
+    ) {
       return this.placer
     }
+
+    return null
   }
+
+  isPenetrable() {
+    return false
+  }
+
 
   onEffectLevelChanged(effect, level) {
     super.onEffectLevelChanged(effect, level)
