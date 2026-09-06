@@ -11,7 +11,7 @@ class Arrow extends BaseCommand {
       "/arrow set [arrow_id 1:10] [player] [point_to id/name] [color] [size 1:35] [tool_tip] [bg true:false]",
       "/arrow remove [arrow_id] [player]",
       "/arrow clear [player]",
-      "ex: /arrow set 1 kuroro 1234 Slime red",
+      "ex: /arrow set 1 kuroro 1234 red 25 Slime false",
     ]
   }
 
