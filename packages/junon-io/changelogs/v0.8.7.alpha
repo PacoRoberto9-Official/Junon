@@ -1,11 +1,11 @@
 {
-  "version": "v0.8.6.alpha",
+  "version": "v0.8.7.alpha",
   "date": "September 3, 2026",
   "title": "QOL Update #3 - Perrito and akrolpative",
   "content": {
     "bugs": [
-      "\"/score set\" will no longer trigger ScoreChanged with $previous and $current displaying undefined.",
-      "Fixed \"/spawncorpse\" not spawning correctly with \"row, col\" arguments.",
+      "'/score set' will no longer trigger ScoreChanged with $previous and $current displaying undefined.",
+      "Fixed '/spawncorpse' not spawning correctly with 'row, col' arguments.",
       "Fixed the visual bug of the timer being at tick 0.05 when it should be at tick 1 when the timer action is created.",
       "Fixed command block example typos.",
       "Fixed the description of the molotov cocktail to be clearer.",
@@ -19,7 +19,7 @@
       "Added new subcommands for /caption, /dirt and /blood",
       "Added new subcommand lighting for /setting to set lighting level from 0 to 100",
       "Added consistency along with a few more examples to functions page in the command blocks menu.",
-      "/caption now allows hex colors or color values, example: /caption title §red test || /caption title §#ffaa33 test",
+      "/caption now allows hex colors or color values, example: /caption title \u00a7red test || /caption title \u00a7#ffaa33 test",
       "Added the functions $getValuePosition, $getValueLength, $getPushedValue, $getDate(), $getEntityDistance, and $getRemovedValue.",
       "Replaced $getBuildingType() with $getEntityType() because it might be too confusing, making it obsolete, $getBuildingType() will still be usable for old games, but it will not be included in the command block functions to promote use of $getEntityType().",
       "$getBuildingType() and $getEntityType() will now accept $player names and return Player .",
