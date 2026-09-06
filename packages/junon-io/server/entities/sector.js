@@ -403,7 +403,8 @@ initSettings(entities) {
     isGravityEnabled: false,
     isFireSpreadEnabled: true,
     isItemBreakingEnabled: true,
-    isSpectateAllowed: true
+    isSpectateAllowed: true,
+    isOverclockEnabled: false,
   };
 
   if (this.isPeaceful()) {
