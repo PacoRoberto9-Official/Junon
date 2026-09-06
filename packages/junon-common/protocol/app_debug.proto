@@ -40,6 +40,7 @@ message Building {
   map<string,string> localeContents = 36;
   uint32 neighbors = 37;
   string name = 38;
+  map<string,uint32> prices = 39;
   Network powerNetwork = 51;
   Network fuelNetwork = 52;
   Network oxygenNetwork = 53;
@@ -85,6 +86,7 @@ message Mob {
   Goal goals = 53;
   uint32 nameColor = 54;
   uint32 nameSize = 55;
+  Equipments equipments = 59;
 }
 
 message Network {
