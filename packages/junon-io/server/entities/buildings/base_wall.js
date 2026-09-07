@@ -119,6 +119,7 @@ class BaseWall extends BaseFloor {
       let chunkRegion = wallChunkRegions[id]
       chunkRegions[chunkRegion.getId()] = chunkRegion
     }
+
     return chunkRegions
   }
 

@@ -19,10 +19,6 @@ class BaseForeground extends BaseTerrain {
     return true
   }
 
-  isPenetrable() {
-    return false
-  }
-
   shouldCollideEdge() {
     return true
   }

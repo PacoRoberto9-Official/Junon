@@ -42,7 +42,6 @@ message Building {
   string name = 38;
   uint32 nameColor = 39;
   uint32 nameSize = 40;
-  map<string,uint32> prices = 41;
 }
 
 message Mob {
@@ -77,6 +76,5 @@ message Mob {
   string content = 30;
   uint32 nameColor = 31;
   uint32 nameSize = 32;
-  Equipments equipments = 33;
-  string arrowList = 34;
 }
+

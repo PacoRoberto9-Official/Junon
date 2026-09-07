@@ -374,57 +374,48 @@ class Sector {
     return false
   }
 
+  initSettings(entities) {
+    let firespread = true;
+    let isItemBreakingEnabled = true;
+    if(this.isPeaceful()) firespread = false;
+    if(this.isPeaceful()) isItemBreakingEnabled = true;
+    this.settings = {
+      isPvPAllowed: false,
+      isFovMode: false,
+      isZoomAllowed: true,
+      showMiniMap: true,
+      showPlayerList: true,
+      isMobAutospawn: true,
+      isFloorAutodirt: true,
+      isStaminaEnabled: true,
+      isHungerEnabled: true,
+      isOxygenEnabled: true,
+      isChatEnabled: true,
+      isInfiniteAmmo: false,
+      isInfinitePower: false,
+      isCorpseEnabled: true,
+      isShadowsEnabled: true,
+      isPlayerSavingEnabled: true,
+      showTeamJoin: false,
+      isCraftingEnabled: true,
+      isBloodEnabled: true,
+      isSuitChangeEnabled: true,
+      isDropInventoryOnDeath: false,
+      isMutantEnabled: true,
+      isGravityEnabled: false,
+      isFireSpreadEnabled: firespread,
+      isItemBreakingEnabled: true,
+      isSpectateAllowed: true
+    }
 
-initSettings(entities) {
-  // Base/default settings
-  this.settings = {
-    isPvPAllowed: false,
-    isFovMode: false,
-    isZoomAllowed: true,
-    showMiniMap: true,
-    showPlayerList: true,
-    isMobAutospawn: true,
-    isFloorAutodirt: true,
-    isStaminaEnabled: true,
-    isHungerEnabled: true,
-    isOxygenEnabled: true,
-    isChatEnabled: true,
-    isInfiniteAmmo: false,
-    isInfinitePower: false,
-    isCorpseEnabled: true,
-    isShadowsEnabled: true,
-    isPlayerSavingEnabled: true,
-    showTeamJoin: false,
-    isCraftingEnabled: true,
-    isBloodEnabled: true,
-    isSuitChangeEnabled: true,
-    isDropInventoryOnDeath: false,
-    isMutantEnabled: true,
-    isGravityEnabled: false,
-    isFireSpreadEnabled: true,
-    isItemBreakingEnabled: true,
-    isSpectateAllowed: true,
-    isOverclockEnabled: false,
-  };
+    if (!entities) return
 
-  if (this.isPeaceful()) {
-    this.settings.isFireSpreadEnabled = false;
-    this.settings.isItemBreakingEnabled = true;
-  }
-  
-  if (entities && entities.settings) {
     for (let name in entities.settings) {
       if (typeof this.settings[name] !== 'undefined') {
-        this.settings[name] = entities.settings[name];
+        this.settings[name] = entities.settings[name]
       }
     }
   }
-
-  if (this.isHardcore()) {
-    this.settings.isFovMode = true;
-  }
-}
-
 
   canBeCrafted(type) {
     if (this.isMiniGame()) {
@@ -879,15 +870,6 @@ initSettings(entities) {
     return this.gameMode === 'peaceful'
   }
 
-  isSurvival() {
-    return this.gameMode === 'survival'
-  }
-
-  isHardcore() {
-    return this.gameMode === 'hardcore'
-  }
-  
-
   canUseCommandBlocks() {
     return this.isPeaceful() || this.isMiniGame()
   }
@@ -1246,12 +1228,6 @@ initSettings(entities) {
     }
   }
   
-  removeStructures(row, col) {
-    let tile = this.structureMap.get(row, col)
-    if (tile) {
-      tile.remove()
-    }
-  }
 
   addClaim(entity, claimer) {
     new Claim(this, entity, claimer, this.game.timestamp)
@@ -1558,7 +1534,6 @@ initSettings(entities) {
       let player = this.changedPlayers[key]
       player.sendChangedPlayersToClient()
       player.sendChangedCorpsesToClient()
-      player.sendChangedMobsToClient()
     }
 
     this.clearChangedPlayers()
@@ -2385,11 +2360,7 @@ initSettings(entities) {
         desiredChunkRegion = chunkRegion
       }
 
-      let chunkRegionNeighbors = chunkRegion.getNeighbors({
-        sameBiome: true,
-        passThroughWall: options.passThroughWall || false,
-        passThroughPenetrableWall: options.passThroughPenetrableWall || false
-      })
+      let chunkRegionNeighbors = chunkRegion.getNeighbors({ sameBiome: true, passThroughWall: false })
       let shouldStopNeighborTraversal = desiredChunkRegion ||
                                         options.neighborStopCondition(chunkRegion, hops)
 

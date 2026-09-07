@@ -16,7 +16,7 @@ class Level extends BaseCommand {
   }
 
   isEnabled() {
-    return true
+    return false
   }
 
   perform(caller, args) {
@@ -40,7 +40,7 @@ class Level extends BaseCommand {
       return
     }
 
-    if (amount < 0 || amount > 9999) {
+    if (amount < 0 || amount > 99) {
       caller.showChatError("Invalid amount: " + amount)
       return
     }

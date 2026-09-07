@@ -95,7 +95,6 @@ class Game {
     this.errorTitle = document.querySelector('#error_title')
     this.captionCenter = document.querySelector('#caption_center')
     this.captionFooter = document.querySelector('#caption_footer')
-    this.arrowContainer = document.querySelector('#arrow_container')
     this.shipStatSpeed = document.querySelector('.ship_stat_speed')
     this.shipStatHealth = document.querySelector('.ship_stat_health')
     this.shipStatShield = document.querySelector('.ship_stat_shield')
@@ -1424,7 +1423,7 @@ class Game {
         cb()
       })
 
-    let tempAssets = ['armored_window_icon.png', 'armored_window_base.png', 'armored_window.png','window_icon.png', 'window_base.png', 'window.png','circuit_board_printer.png','neon_sign.png', 'small_wood_table.png', 'displacement_map.png', 'squid_lord_heart.png', 'squid_staff.png', 'fries.png', 'energy_drink.png', 'alien_juice.png', 'rocket_launcher.png', 'scar_17_by_px.png', 'bowl_by_px.png', 'potato_soup_by_px.png', 'miso_soup_by_px.png', 'slime_broth_by_px.png', 'bomber_turret_by_px.png', 'firebat.png', 'plasma_blade.png', 'raven.png', 'starberries.png', 'car.png', 'bricks_texture.png', 'checker_texture.png', 'noise_texture.png', 'x_texture.png', 'xchecker_texture.png', 'nihonshu.png', 'pumpkin.png', 'pumpkin_plant.png', 'pumpkin_seed.png', 'rice.png', 'rice_plant.png', 'rice_seed.png', 'fish.png', 'nigiri.png', 'katana_reskin.png', 'pumpkin_pie.png', 'imperial_special_forces_armor.png', 'deconstructor.png', 'blue_laser.png', 'keypad_door.png', 'keypad_door_lower.png', 'keypad_door_upper.png', 'unbreakable_wall.png', 'sapper.png', 'sapper_corpse.png', 'dynamite.png', 'miasma_gate.png', "solid_texture2.png", "simplex_texture.png", "cabbage_seed.png", "cabbage_plant.png", "cabbage.png", "3dwall-0.png", "3dwall-1.png", "3dwall-2.png", "3dwall-3.png", "3dwall-4.png", "3dwall-5.png", "3dwall-6.png", "3dwall-7.png", "3dwall-8.png", "3dwall-9.png", "3dwall-10.png", "3dwall-11.png", "3dwall-12.png", "3dwall-13.png", "shotgun_reskin.png",  "ak47.png", "bolt_action_rifle.png", "minigun.png", "flame_thrower_reskin.png", "grenade_launcher.png", "uzi2.png", "player_hands_hold.png", "player_hands_hold_heavy.png", "player_hands_hold_launcher.png", "small_airlock_upper.png", "small_airlock_lower.png", "small_airlock.png", "heavy_rifle.png", "shock_grenade.png", "bayonet.png", "kukri.png", "blue.png", "revitalizer.png", "revitalizer_base.png", "revitalizer_core.png", "revitalizer_beam.png", "dispenser.png"]
+    let tempAssets = ['small_wood_table.png', 'displacement_map.png', 'squid_lord_heart.png', 'squid_staff.png', 'fries.png', 'energy_drink.png', 'alien_juice.png', 'rocket_launcher.png', 'scar_17_by_px.png', 'bowl_by_px.png', 'potato_soup_by_px.png', 'miso_soup_by_px.png', 'slime_broth_by_px.png', 'bomber_turret_by_px.png', 'firebat.png', 'plasma_blade.png', 'raven.png', 'starberries.png', 'car.png', 'bricks_texture.png', 'checker_texture.png', 'noise_texture.png', 'x_texture.png', 'xchecker_texture.png', 'nihonshu.png', 'pumpkin.png', 'pumpkin_plant.png', 'pumpkin_seed.png', 'rice.png', 'rice_plant.png', 'rice_seed.png', 'fish.png', 'nigiri.png', 'katana_reskin.png', 'pumpkin_pie.png', 'imperial_special_forces_armor.png', 'deconstructor.png', 'blue_laser.png', 'keypad_door.png', 'keypad_door_lower.png', 'keypad_door_upper.png', 'unbreakable_wall.png', 'sapper.png', 'sapper_corpse.png', 'dynamite.png', 'miasma_gate.png', "solid_texture2.png", "simplex_texture.png", "cabbage_seed.png", "cabbage_plant.png", "cabbage.png", "3dwall-0.png", "3dwall-1.png", "3dwall-2.png", "3dwall-3.png", "3dwall-4.png", "3dwall-5.png", "3dwall-6.png", "3dwall-7.png", "3dwall-8.png", "3dwall-9.png", "3dwall-10.png", "3dwall-11.png", "3dwall-12.png", "3dwall-13.png", "shotgun_reskin.png",  "ak47.png", "bolt_action_rifle.png", "minigun.png", "flame_thrower_reskin.png", "grenade_launcher.png", "uzi2.png", "player_hands_hold.png", "player_hands_hold_heavy.png", "player_hands_hold_launcher.png", "small_airlock_upper.png", "small_airlock_lower.png", "small_airlock.png", "heavy_rifle.png", "shock_grenade.png", "bayonet.png", "kukri.png"]
     tempAssets.forEach((asset) => {
       console.log(`Loaded ${asset}:`)
       PIXI.Texture.addToCache(PIXI.Texture.fromImage('/assets/images/' + asset), asset)
@@ -1460,17 +1459,15 @@ class Game {
   openInGameMenu() {
     document.querySelector("#welcome_container").classList.add("in_game")
     document.querySelector("#welcome_container").style.display = 'block'
-    document.querySelector("#arrow_container").style.visibility = "hidden"
 
     this.main.showMainMenu()
     this.hideActionTooltip()
     this.hideGameHuds()
-    this.closeEntityMenu()
+    closeEntityMenu()
   }
 
   closeInGameMenu() {
     this.main.onBackMainMenuBtnClick()
-    document.querySelector("#arrow_container").style.visibility = "visible"
 
     document.querySelector("#welcome_container").classList.remove("in_game")
     document.querySelector("#welcome_container").style.display = 'none'
@@ -1584,7 +1581,6 @@ class Game {
     SocketUtil.on("TempCommandBlockData", this.onTempCommandBlockData.bind(this))
     SocketUtil.on("BadgesData", this.onBadgesData.bind(this))
     SocketUtil.on("BadgeEquipped", this.onBadgeEquipped.bind(this))
-    SocketUtil.on("RevitalizerActivate", this.onRevitalizerActivate.bind(this))
   }
 
   onBadgeEquipped(data) {
@@ -2232,12 +2228,6 @@ class Game {
     this.slaveTradeMenu.updateGoldCount(gold, delta)
 
     document.querySelector(".gold.resource_count").innerText = gold
-  }
-
-  onRevitalizerActivate(data) {
-    if (!data.entityId || !data.targetId) return
-    let entity = this.sector.getEntity(data.entityId)
-    if (entity) entity.renderHeal(data.targetId, data.isEmpty)
   }
 
   onInventoryChanged(data) {
@@ -2907,25 +2897,21 @@ console.log(options)
       this.errorContent.parentElement.style.display = 'block'
     }
 
+    console.log(textContent)
+
+    textContent.innerText = msg
     textContent.className = ""
     textContent.style.cssText = 'pointer-events: none !important; user-select: none !important; -webkit-user-select: none !important;';
     textContent.ondragstart = () => false;
 
 
-    if (options.isTitle && !options.isWarning && !options.isSuccess) {
+    if (options.isTitle) {
       if (options.color) {
         textContent.style.color = options.color
       } else {
         textContent.style.color = "yellow"
       }
     }
-    let messageToWrite = msg
-    if (msg.split("")[0] == "§") {
-      let NewColor = msg.split(" ")[0].slice(1)
-      textContent.style.color = NewColor
-      messageToWrite = msg.substring(msg.indexOf(" ") + 1); 
-    }
-    textContent.innerText = messageToWrite
 
     if (options.size) {
       textContent.style.fontSize = options.size + "px"
@@ -2945,7 +2931,7 @@ console.log(options)
       textContent.classList.add("success")
     }
 
-    if (options.transparent && !options.success && !options.warning) {
+    if (options.transparent) {
       textContent.classList.add("transparent")
     }
 
@@ -3226,15 +3212,6 @@ console.log(options)
   }
 
   onSyncWithServer(data) {
-    let PrevLighting = this.isLightingCustom
-    this.isLightingCustom = data.isLightingCustom
-    if (this.isLightingCustom == 0) {
-      this.isLightingCustom = null
-    }
-    if (PrevLighting != this.isLightingCustom) {
-      this.sector.lightManager.setDarkness(this.hour)
-    }
-    
     this.timestamp = data.timestamp
 
     this.arrowList = data.arrowList
@@ -3537,6 +3514,7 @@ arrow.style.setProperty('--arrow-color',realColor)
 
   renderHour(data) {
     if (!data.hasOwnProperty("hour")) return
+
     if (this.hour !== data.hour) {
       this.hour = data.hour
       this.onHourChanged()
@@ -3934,7 +3912,6 @@ arrow.style.setProperty('--arrow-color',realColor)
     this.renderInventory(data)
     this.onEquipIndexChanged(data)
 
-    
     this.mapMenu.reinit()
   }
 
@@ -4675,10 +4652,6 @@ arrow.style.setProperty('--arrow-color',realColor)
       Array.from(document.querySelectorAll(".modal_menu")).forEach((el) => {
         el.style.display = 'none'
       })
-      document.querySelectorAll('#arrow_container > div').forEach((div, index) => {
-        document.getElementById(div.id).remove()
-      });
-
 
       clearInterval(this.waveCountdownInterval)
 

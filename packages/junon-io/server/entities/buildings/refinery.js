@@ -21,7 +21,7 @@ class Refinery extends BaseProcessor {
     let outputItem = this.getOutputItem()
     if (outputItem && outputItem.isFullyStacked()) return false
       
-    return this.hasMetPowerRequirement() && this.getInputItems(this.getInputStorageIndices())[0]
+    return this.hasMetPowerRequirement() && this.getInputItem()
   }
 
   onPowerChanged() {
@@ -36,8 +36,7 @@ class Refinery extends BaseProcessor {
     return Protocol.definition().BuildingType.Refinery
   }
 
-  isProcessable(inputItems) {
-    const inputItem = inputItems[0]
+  isProcessable(inputItem) {
     return inputItem.isOre() || inputItem.isBar()
   }
 

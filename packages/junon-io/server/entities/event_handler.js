@@ -784,8 +784,6 @@ class EventHandler {
     return entity.health
   }
 
-
-
   getY(entityId) {
     let player = this.getPlayer(entityId)
     if (player) {
@@ -1527,7 +1525,6 @@ class EventHandler {
       "$getEquip": true,
       "$getRole": true,
       "$getHealth": true,
-      "$getLevel": true,
       "$getStamina": true,
       "$getSpeed": true,
       "$getOxygen": true,

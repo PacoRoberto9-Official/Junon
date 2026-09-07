@@ -591,19 +591,6 @@ class ChunkRegion {
     this.gates = {}
   }
 
-  getWallConnectingChunkRegion(chunkRegion) {
-    for (let wallId in this.walls) {
-      let wall = this.walls[wallId]
-      let wallChunkRegions = wall.getChunkRegions()
-
-      if (wallChunkRegions[chunkRegion.getId()]) {
-        return wall
-      }
-    }
-
-    return null
-  }
-
   getNeighbors(options = {}) {
     let neighbors = {}
 
@@ -656,7 +643,7 @@ class ChunkRegion {
 
     }
 
-    if (options.passThroughWall || options.passThroughPenetrableWall) {
+    if (options.passThroughWall) {
       let chunkRegions = this.chunk.getChunkRegions()
       for (let id in chunkRegions) {
         let chunkRegion = chunkRegions[id]
@@ -670,12 +657,10 @@ class ChunkRegion {
           isBiomeSatisfied = chunkRegion.isSky !== this.isSky
         }
 
-        if (chunkRegion !== this && isBiomeSatisfied) {
-          let wall = this.getWallConnectingChunkRegion(chunkRegion)
-
-          if (wall && (options.passThroughWall || wall.isPenetrable())) {
-            neighbors[chunkRegion.getId()] = chunkRegion
-          }
+        if (chunkRegion !== this &&
+            chunkRegion.isWallConnected(this) &&
+            isBiomeSatisfied) {
+          neighbors[chunkRegion.getId()] = chunkRegion
         }
       }
     }

@@ -67,7 +67,6 @@ class Grenade extends CollidableProjectile {
   }
 
   onCollide(entity) {
-    return
     if (entity.getOwner() !== this.getOwner()) {
       this.remove()
       this.trigger()

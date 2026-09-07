@@ -126,7 +126,6 @@ class Airlock extends BaseBuilding {
   }
 
   openFor(duration, entity) {
-    if(!this.getIsPowered()) {return}
     this.open()
 
     let changerType

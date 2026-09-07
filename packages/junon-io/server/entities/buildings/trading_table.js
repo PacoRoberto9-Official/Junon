@@ -14,10 +14,6 @@ class TradingTable extends BaseBuilding {
     }
   }
 
-  isPenetrable() {
-    return true
-  }
-
   getConstantsTable() {
     return "Buildings.TradingTable"
   }

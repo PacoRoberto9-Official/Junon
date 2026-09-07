@@ -137,12 +137,7 @@ class RemoteEventHandler {
   onEquipBadge(player, data, socket) {
     player.equipBadge(data.name)
   }
-  onVendingPriceChange(player, data, socket) {
-    let entity = player.game.getEntity(data.vendId)
-    if(!entity || !data.itemId) return
-    if(entity.owner.getId() !== player.getId()) return
-    entity.changePrice(data)
-  }
+
   onEditCommandBlock(player, data, socket) {
     if (!player.canEditCommandBlock()) return
     player.sector.commandBlock.edit(data, player)

@@ -71,7 +71,6 @@ Container.prototype = {
       let raycasts = grid.raycast(sourceX, sourceY, targetX, targetY, maxLength, entityToIgnore)
       let blockingRaycasts = raycasts.filter((raycast) => {
         if (raycast.entity.isBuilding()) {
-          if (raycast.entity.isPenetrable()) return false
           return raycast.entity.isPathFindBlocker()
         } else {
           return true

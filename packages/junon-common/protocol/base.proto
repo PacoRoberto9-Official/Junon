@@ -174,8 +174,6 @@ message MessageWrapper {
     EquipBadge EquipBadge = 181;
     BadgeEquipped BadgeEquipped = 182;
     TriggerPlayerMenu TriggerPlayerMenu = 183;
-    RevitalizerActivate RevitalizerActivate = 184;
-    VendingPriceChange VendingPriceChange = 185;
   }
 }
 
@@ -242,18 +240,6 @@ message KeypadAction {
   uint32 id = 1;
   string action = 2;
   string keyCode = 3;
-}
-
-message RevitalizerActivate {
-  uint32 entityId = 1;
-  uint32 targetId = 2;
-  bool isEmpty = 3;
-}
-
-message VendingPriceChange {
-  uint32 vendId = 1;
-  uint32 cost = 2;
-  uint32 itemId = 3;
 }
 
 message CommandEventLogList {
@@ -977,8 +963,6 @@ message GameState {
   double tick = 4;
   uint32 memory = 5;
   Camera camera = 6;
-  uint32 isLightingCustom = 7;
-  string arrowList = 8;
 }
 
 message InventoryChanged {
@@ -1251,7 +1235,6 @@ message JoinGame {
   map<string, Objective> objectives = 28;
   map<uint32, EntityDialogues> dialogueMap = 29;
   FullMap fullMap = 30;
-  uint32 isLightingCustom = 31;
 }
 
 message Objective {

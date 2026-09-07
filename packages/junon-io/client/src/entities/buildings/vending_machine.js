@@ -30,19 +30,12 @@ class VendingMachine extends BaseBuilding {
 
     let actions = ""
 
-    if (this.owner && this.owner.id === this.game.player.getId()) {
+    let team = this.game.player.getTeam()
+    if (this.game.isLeaderAndOwner(this, team, this.game.player)) {
       actions += withdraw
     }
 
     return actions
-  }
-
-  setPrices(prices) {
-    if(Object.hasOwn(prices, "empty")) {
-      this.prices = {}
-    } else {
-      this.prices = prices
-    }
   }
 
   onContentChanged() {

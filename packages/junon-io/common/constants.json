@@ -595,14 +595,6 @@
         "isPowered": "true if powered, false if not"
       }
     },
-    "GoalAchieved": {
-      "description": "Event triggered when a mobs goal is achieved",
-      "variables": {
-        "mobId": "id of mob",
-        "mobType": "type of mob",
-        "goalId": "id of goal"
-      }
-    },
     "Timer:start": {
       "description": "Event triggered when timer starts",
       "variables": {
@@ -2246,7 +2238,6 @@
     "CircuitBoard": {
       "width": 32,
       "height": 32,
-      "isCostIndependent": true,
       "cost": {
         "gold": 30
       },
@@ -2255,8 +2246,7 @@
         "speed": 5
       },
       "requirements": {
-        "CopperBar": 5,
-        "Glass": 5
+        "CopperBar": 2
       },
       "upgrade": {},
       "description": "CircuitBoard"
@@ -4042,6 +4032,7 @@
       "isThrowable": true,
       "isStackable": true,
       "isUnbreakable": true,
+      "isCostIndependent": true,
       "cost": {
         "gold": 1000
       },
@@ -4636,7 +4627,7 @@
       },
       "stats": {
         "health": 500,
-        "speed": 96,
+        "speed": 64,
         "count": 125
       },
       "upgrade": {
@@ -4991,11 +4982,11 @@
         "gold": 15
       },
       "requirements": {
-        "IronBar": 5
+        "IronBar": 1
       },
       "stats": {
-        "health": 500,
-        "pvpHealth": 1000,
+        "health": 300,
+        "pvpHealth": 600,
         "count": 100
       },
       "upgrade": {
@@ -5381,12 +5372,12 @@
     "Cage": {
       "width": 32,
       "height": 32,
-      "categories": {"wall": true, "custom_colors": true},
+      "categories": {"custom_colors": true},
       "cost": {
         "gold": 50
       },
       "requirements": {
-        "IronBar": 3
+        "IronBar": 4
       },
       "stats": {
         "health": 100,
@@ -5397,69 +5388,6 @@
         "count": "+25"
       },
       "description": "Used to secure tamed animals/aliens"
-    },
-    "LowWall": {
-      "width": 32,
-      "height": 32,
-      "categories": {"wall": true, "custom_colors": true},
-      "cost": {
-        "gold": 30
-      },
-      "requirements": {
-        "IronBar": 3
-      },
-      "stats": {
-        "health": 150,
-        "count": 100
-      },
-      "upgrade": {
-        "health": "+100",
-        "count": "+25"
-      },
-      "description": "Low wall you can shoot over"
-    },
-    "Window": {
-      "width": 32,
-      "height": 32,
-      "categories": {"wall": true, "custom_colors": true, "melee_resistant":false},
-      "cost": {
-        "gold": 50
-      },
-      "requirements": {
-        "LowWall": 1,
-        "Glass": 3
-      },
-      "stats": {
-        "health": 50,
-        "count": 100
-      },
-      "upgrade": {
-        "health": "+100",
-        "count": "+25"
-      },
-      "description": "Glass window that you can see through. Fragile"
-    },
-    "ArmoredWindow": {
-      "width": 32,
-      "height": 32,
-      "categories": {"wall": true, "custom_colors": true, "melee_resistant":false},
-      "cost": {
-        "gold": 50
-      },
-      "requirements": {
-        "LowWall": 1,
-        "Glass": 5,
-        "IronBar": 1
-      },
-      "stats": {
-        "health": 150,
-        "count": 100
-      },
-      "upgrade": {
-        "health": "+100",
-        "count": "+25"
-      },
-      "description": "Glass window that you can see through. Fragile"
     },
     "Fence": {
       "width": 128,
@@ -5698,37 +5626,6 @@
         "count": "+25"
       },
       "description": "Display Editable Text to Players"
-    },
-    "NeonSign": {
-      "width": 32,
-      "height": 32,
-      "cost": {
-        "gold": 200
-      },
-      "isPassable": true,
-      "categories": {"sign": true, "switch":true,"lamp":true},
-      "hasMenu": true,
-      "hasEditableContent": true,
-      "isInteractable": true,
-      "maxContentLength": 300,
-      "isLightSource": true,
-      "lightColor": "#00ffff",
-      "isLightPersistent": true,
-      "lightRadius": 2,
-      "requirements": {
-        "IronBar": 20,
-        "CircuitBoard": 5,
-        "Wire": 5,
-        "Glass": 5
-      },
-      "stats": {
-        "health": 50
-      },
-      "upgrade": {
-        "health": "+100",
-        "count": "+25"
-      },
-      "description": "Display Editable Text to Players. Has a self contained power source"
     },
     "EmergencyButton": {
       "width": 64,
@@ -5985,8 +5882,8 @@
       "stats": {
         "health": 150,
         "count": 125,
-        "powerProduction": 25,
-        "powerCapacity": 500,
+        "powerProduction": 10,
+        "powerCapacity": 1000,
         "clientResource": "power"
       },
       "upgrade": {
@@ -6317,7 +6214,7 @@
       "sprite": {
         "rotation": 90
       },
-      "categories": {"seller":true,"vending_machine":true,"editable_permissions":true},
+      "categories": {"seller":true,"vending_machine":true},
       "hasMenu": true,
       "menuDescription": "",
       "isInteractable": true,
@@ -6329,8 +6226,7 @@
         "CircuitBoard": 10
       },
       "stats": {
-        "health": 250,
-        "powerConsumption": 100
+        "health": 250
       },
       "upgrade": {
         "health": "+25",
@@ -6347,7 +6243,7 @@
       "sprite": {
         "rotation": 90
       },
-      "categories": {"seller":true,"vending_machine":true,"editable_permissions":true},
+      "categories": {"seller":true,"vending_machine":true},
       "hasMenu": true,
       "menuDescription": "",
       "isInteractable": true,
@@ -6359,41 +6255,13 @@
         "CircuitBoard": 10
       },
       "stats": {
-        "health": 250,
-        "powerConsumption": 100
+        "health": 250
       },
       "upgrade": {
         "health": "+25",
         "count": "+25"
       },
       "description": "Store and sell drinks"
-    },
-    "Dispenser": {
-      "width": 64,
-      "height": 96,
-      "cost": {
-        "gold": 500
-      },
-      "categories": {"seller":true,"vending_machine":true,"editable_permissions":true},
-      "hasMenu": true,
-      "menuDescription": "",
-      "isInteractable": true,
-      "showInteractTooltip": true,
-      "storageCount": 16,
-      "requirements": {
-        "IronBar": 80,
-        "Wire": 10,
-        "CircuitBoard": 20
-      },
-      "stats": {
-        "health": 250,
-        "powerConsumption": 100
-      },
-      "upgrade": {
-        "health": "+25",
-        "count": "+25"
-      },
-      "description": "Store and sell items."
     },
     "Conveyor": {
       "width": 32,
@@ -6523,8 +6391,7 @@
       },
       "stats": {
         "health": 300,
-        "count": 125,
-        "powerConsumption": 50
+        "count": 125
       },
       "upgrade": {
         "health": "+25",
@@ -6792,37 +6659,6 @@
         "count": "+25"
       },
       "description": "[Deprecated] No longer functional"
-    },
-    "CircuitBoardPrinter": {
-      "parent": "Buildings.BaseProcessor",
-      "width": 96,
-      "height": 96,
-      "hasMenu": true,
-      "categories": {"producer": true},
-      "isInteractable": true,
-      "menuDescription": "Slot 1: Copper Bar + Slot 2: Glass = Output: Circuit Board",
-      "storageCount": 3,
-      "requirements": {
-        "IronBar": 90,
-        "CopperBar": 10,
-        "CircuitBoard": 5, 
-        "Wire": 15,
-        "Glass": 10
-      },
-      "cost": {
-        "gold": 650
-      },
-      "stats": {
-        "health": 150,
-        "count": 125,
-        "processingRate": 3,
-        "powerConsumption": 250
-      },
-      "upgrade": {
-        "health": "+25",
-        "count": "+25"
-      },
-      "description": "Turns copper bars and glass into circuit boards at high efficiency"
     },
     "OilRefinery": {
       "width": 96,
@@ -7426,38 +7262,6 @@
         "count": "+1"
       },
       "description": "Launches homing missile towards locked target."
-    },
-    "Revitalizer": {
-      "width": 64,
-      "height": 64,
-      "cost": {
-        "gold": 500
-      },
-      "shouldAttackIgnoreObstacle": true,
-      "categories": {"turret":true,"editable_targets":false},
-      "hasFillBar": true,
-      "stats": {
-        "reload": 500,
-        "damage": 5,
-        "health": 150,
-        "range": 480,
-        "powerConsumption": 500,
-        "fuelConsumption": 5,
-        "fuelCapacity": 100,
-        "clientResource": "fuel"
-      },
-      "requirements": {
-        "IronBar": 90,
-        "Meteorite": 40,
-        "CircuitBoard": 25,
-        "FuelPipe": 5
-      },
-      "upgrade": {
-        "damage": "+1",
-        "health": "+50",
-        "count": "+1"
-      },
-      "description": "Slowly repairs damaged structures. Requires fuel and power."
     },
     "Cannon": {
       "width": 64,

@@ -8,8 +8,8 @@ class BaseProcessor extends BaseBuilding {
     this.progress = 0
   }
 
-  getInputStorageIndices() {
-    return [0]
+  getInputStorageIndex() {
+    return 0
   }
 
   getOutputStorageIndex() {
@@ -29,8 +29,8 @@ class BaseProcessor extends BaseBuilding {
 
   canProceed() {
     if (this.isStorageFull()) return false
-    let inputItems = this.getInputItems(this.getInputStorageIndices())
-    return inputItems && this.isProcessable(inputItems)
+    let inputItem = this.getInputItem()
+    return inputItem && this.isProcessable(inputItem)
   }
 
   increaseProgress() {
@@ -70,13 +70,16 @@ class BaseProcessor extends BaseBuilding {
   onProgressChanged() {
     if (this.hasReachedFullProgress()) {
       this.progress = 0
-      let inputItems = this.getInputItems(this.getInputStorageIndices())
-      let outputItem = this.createOutputItem(inputItems)
+      let inputItem = this.getInputItem()
+
+      let outputItem = this.createOutputItem(inputItem)
       if (outputItem) {
         this.storeAt(this.getOutputStorageIndex(), outputItem)
-        inputItems.forEach((inputItem) => {
-          inputItem.consume()
-        })
+      }
+
+
+      if (inputItem) {
+        inputItem.consume()
       }
     }
   }
@@ -85,23 +88,9 @@ class BaseProcessor extends BaseBuilding {
     throw new Error("must implement BaseProcessor#createOutputItem")
   }
 
-  getInputItems(storageIndices) {
-    if (!Array.isArray(storageIndices)) {
-      storageIndices = [storageIndices]
-    }
-    
-    const inputItems = []
-
-    for (let i = 0; i < storageIndices.length; i++) {
-      const item = this.get(storageIndices[i])
-      if (item) {
-        inputItems.push(item)
-      }
-    }
-
-    return inputItems
+  getInputItem() {
+    return this.get(this.getInputStorageIndex())
   }
-
 
   getOutputItem() {
     return this.get(this.getOutputStorageIndex())
@@ -117,9 +106,9 @@ class BaseProcessor extends BaseBuilding {
   }
 
   processInputItem() {
-    let inputItems = this.getInputItems(this.getInputStorageIndices())
-    if (inputItems) {
-      if (this.isProcessable(inputItems)) {
+    let inputItem = this.getInputItem()
+    if (inputItem) {
+      if (this.isProcessable(inputItem)) {
         this.addProcessor()
       } else {
         this.removeProcessor()

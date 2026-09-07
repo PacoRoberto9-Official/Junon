@@ -29,17 +29,18 @@ class ImperialSpecialForcesArmor extends ArmorEquipment {
   onPostEquip() {
     super.onPostEquip()
 
-    if (this.user && (this.user.isPlayer() || this.user.getType() === Protocol.definition().MobType.Human)) {
+    if (this.user && this.user.isPlayer()) {
       this.user.hands.tint = 0x666666
       this.user.leftHand.tint = 0x666666
       this.user.rightHand.tint = 0x666666
     }
   }
 
+
   remove() {
     super.remove()
 
-    if (this.user && (this.user.isPlayer() || this.user.getType() === Protocol.definition().MobType.Human)) {
+    if (this.user && this.user.isPlayer()) {
       this.user.hands.tint = 0xd2b48c
       this.user.leftHand.tint = 0xd2b48c
       this.user.rightHand.tint = 0xd2b48c
