@@ -3949,8 +3949,8 @@ class Player extends BaseEntity {
   }
 
   consumeRage() {
-    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isTwoSecondInterval) return
+    const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     if (!this.hasEffect("rage")) return
 

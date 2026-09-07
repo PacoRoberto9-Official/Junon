@@ -1411,8 +1411,8 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeWeb() {
-    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isTwoSecondInterval) return
+   const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     const webDuration = this.getEffectDuration("web") * Constants.physicsTimeStep
 
@@ -1425,8 +1425,8 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeParalyze() {
-    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isTwoSecondInterval) return
+     const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     const paralyzeDuration = this.getEffectDuration("paralyze") * Constants.physicsTimeStep
 
@@ -1439,8 +1439,10 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumePoison() {
-    const isThreeSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 3) === 0
+       const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+        const isThreeSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 3) === 0
     if (!isThreeSecondInterval) return
+    if (!isOneSecondInterval) return
 
     if (this.isImmuneTo("poison")) return
 
@@ -1450,7 +1452,7 @@ class BaseEntity extends BaseTransientEntity {
       const accumulatedTime = this.game.timestamp - this.getEffectCreatedAt("poison")
       if (accumulatedTime >= poisonDuration) {
         this.removeEffect("poison")
-      } else {
+      } else if(isThreeSecondInterval) {
         this.setHealth(this.health - 10)
       }
     }
@@ -1458,8 +1460,8 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeFear() {
-    const isThreeSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isThreeSecondInterval) return
+      const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     const fearDuration = this.getEffectDuration("fear") * Constants.physicsTimeStep
 
@@ -1551,10 +1553,11 @@ class BaseEntity extends BaseTransientEntity {
 
   consumeMiasma() {
     if (this.isImmuneTo("miasma")) return
-
+    const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
     const isFiveSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 5) === 0
     if (!isFiveSecondInterval) return
-
+    if (!isOneSecondInterval) return
+    
     let effectName = "miasma"
 
     if (!this.hasEffect(effectName)) return
@@ -1562,6 +1565,9 @@ class BaseEntity extends BaseTransientEntity {
     const miasmaDuration = this.getEffectDuration("miasma") * Constants.physicsTimeStep
 
     this.reduceHealth(this.getMiasmaDamage())
+if (isFiveSecondInterval) {
+      this.reduceHealth(this.getMiasmaDamage())
+    }
 
     const accumulatedTime = this.game.timestamp - this.getEffectCreatedAt(effectName)
     if (accumulatedTime >= miasmaDuration) {
@@ -1570,8 +1576,9 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeSpin() {
-    const isFiveSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 5) === 0
-    if (!isFiveSecondInterval) return
+    const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
+
     let effectName = "spin"
     if (!this.hasEffect(effectName)) return
 
@@ -1587,8 +1594,8 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeDrunk() {
-    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isTwoSecondInterval) return
+    const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     const drunkDuration = this.getEffectDuration("drunk") * Constants.physicsTimeStep
 
@@ -1601,8 +1608,8 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeInvisible() {
-    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isTwoSecondInterval) return
+    const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     const invisibleDuration = this.getEffectDuration("invisible") * Constants.physicsTimeStep
     if (this.hasEffect("invisible")) {
@@ -1614,8 +1621,8 @@ class BaseEntity extends BaseTransientEntity {
   }
 
   consumeHaste() {
-    const isTwoSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 2) === 0
-    if (!isTwoSecondInterval) return
+    const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
+    if (!isOneSecondInterval) return
 
     const hasteDuration = this.getEffectDuration("haste") * Constants.physicsTimeStep
 
@@ -1682,24 +1689,12 @@ class BaseEntity extends BaseTransientEntity {
       }
     } else {
       if (this.isOnFire()) {
-        if (typeof this.getEffectDuration("fire") !== 'undefined') {
-          const accumulatedTime = this.game.timestamp - this.getEffectCreatedAt("fire")
-          this.fireDuration = this.getEffectDuration("fire") * Constants.physicsTimeStep
-      
-          if (accumulatedTime >= this.fireDuration) {
-            this.removeEffect("fire")
-            this.removeFire()
-            this.fireDuration = 0
-          }
-        }else{
-          this.fireDuration = this.fireDuration ? this.fireDuration : 0
-          this.fireDuration += 1
-
-          if (this.fireDuration >= 3) {
-            this.removeEffect("fire")
-            this.removeFire()
-            this.fireDuration = 0
-          }
+        const accumulatedTime = this.game.timestamp - this.getEffectCreatedAt("fire")
+        this.fireDuration = this.getEffectDuration("fire") * Constants.physicsTimeStep
+        if (accumulatedTime >= this.fireDuration) {
+          this.removeEffect("fire")
+          this.removeFire()
+          this.fireDuration = 0
         }
       }
 

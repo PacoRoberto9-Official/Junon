@@ -112,7 +112,7 @@ Taintable.prototype = {
         haste: 15,
         rage: 60,
         smoke: Infinity,
-        fire: undefined,
+        fire: 2,
       }
       this.effectDuration = {}      
     }
