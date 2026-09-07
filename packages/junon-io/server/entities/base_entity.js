@@ -1441,7 +1441,6 @@ class BaseEntity extends BaseTransientEntity {
   consumePoison() {
        const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
         const isThreeSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 3) === 0
-    if (!isThreeSecondInterval) return
     if (!isOneSecondInterval) return
 
     if (this.isImmuneTo("poison")) return
@@ -1555,7 +1554,6 @@ class BaseEntity extends BaseTransientEntity {
     if (this.isImmuneTo("miasma")) return
     const isOneSecondInterval = this.game.timestamp % Constants.physicsTimeStep === 0
     const isFiveSecondInterval = this.game.timestamp % (Constants.physicsTimeStep * 5) === 0
-    if (!isFiveSecondInterval) return
     if (!isOneSecondInterval) return
     
     let effectName = "miasma"
