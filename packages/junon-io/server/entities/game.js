@@ -1130,28 +1130,30 @@ class Game {
     this.shouldPause = false
   }
 
-  async setGameMode(gameMode) {
-    if (this.isMiniGame()) return
+async setGameMode(gameMode) {
+  if (this.isMiniGame()) return
 
-    let allowedGameModes = ['peaceful', 'survival', 'hardcore']
-    if (allowedGameModes.indexOf(gameMode) === -1) return
-    if (this.gameMode === gameMode) return
+  let allowedGameModes = ['peaceful', 'survival', 'hardcore']
+  if (allowedGameModes.indexOf(gameMode) === -1) return
+  if (this.gameMode === gameMode) return
 
-    if (!this.gameMode || this.gameMode === 'default') {
-      await SectorModel.update({
-        gameMode: gameMode,
-      }, {
-        where: { uid: this.getSectorUid() }
-      })
+  if (!this.gameMode || this.gameMode === 'default') {
+    await SectorModel.update({
+      gameMode: gameMode,
+    }, {
+      where: { uid: this.getSectorUid() }
+    })
 
-      this.gameMode = gameMode
-      this.sector.setGameMode(gameMode)
+    this.gameMode = gameMode
+    this.sector.setGameMode(gameMode)
 
-      this.getSocketUtil().broadcast(this.getSocketIds(), "SectorUpdated", {
-        gameMode: this.gameMode
-      })
-    }
+    this.sector.initSettings()
+    this.getSocketUtil().broadcast(this.getSocketIds(), "SectorUpdated", {
+      gameMode: this.gameMode,
+      settings: this.sector.settings
+    })
   }
+}
 
   isStale() {
     let twoMinutes = Date.now() - this.gameStartTime > (1000 * 60 * 2)
@@ -1724,6 +1726,7 @@ class Game {
         } else {
           this.gameInfo["memory"] = null
         }
+        this.gameInfo["isLightingCustom"] = this.isLightingCustom
 
         if (player.getSentHour() === null ||
             player.getSentHour() !== this.sector.getHour()) {
@@ -1737,6 +1740,9 @@ class Game {
 
         if (player.isCameraMode()) {
           this.gameInfo["camera"] = player.getCamera().toJson()
+        }
+        if (this.playerArrows) {
+        this.gameInfo["arrowList"] = JSON.stringify(this.playerArrows[player.name]||{})
         }
 
         this.getSocketUtil().emit(player.socket, "GameState", this.gameInfo)

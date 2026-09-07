@@ -1088,6 +1088,7 @@
     <div id='vending_machine_menu' class='modal_menu'>
         <div id='storage_container_header' class='menu_main_header'>Vending Machine</div>
         <div id='storage_container_cancel_btn' class='cancel_btn'></div>
+        <div id="vending_status_message"></div>
         <div class='vending_machine_tab_container'>
             <div class='vending_machine_tab selected' data-tab='purchase'><%= t('Purchase') %></div>
             <div class='vending_machine_tab' data-tab='manage'><%= t('Manage') %></div>
@@ -1151,8 +1152,10 @@
             </div>
             <div class='inventory_header'><%= t('Ingredients') %></div>
             <div class='crafting_requirements'></div>
-            <input class='craft_count' maxlength="2" type='number' min='1' max='99' value='1' />
-            <button class='craft_btn' ><%= t('Craft') %></button>
+            <div class='crafting_options'>
+                <input class='craft_count' maxlength="2" type='number' min='1' max='99' value='1' />
+                <button class='craft_btn' ><%= t('Craft') %></button>
+            </div>
         </div>
     </div>
 
@@ -1162,14 +1165,6 @@
         <div class='menu_description'></div>
         <div class='processor_status_message'></div>
         <div class='processor_storage storage'>
-            <div class='input_inventory inventory_slot' data-index='0'><img src=''></div>
-            <div class='processor_progress_bar'>
-                <div class='processor_progress_bar_container'>
-                    <div class='processor_progress_bar_fill'></div>
-                </div>
-                <div class='arrow-right'></div>
-            </div>
-            <div class='output_inventory inventory_slot' data-index='1'><img src=''></div>
         </div>
         <div id='processor_menu_player_inventory_container'>
             <div id='storage_container_header' class='menu_main_header'><%= t('Inventory') %></div>
@@ -1657,6 +1652,15 @@
                             <label for='disable_item_breaking'><%= t('No') %></label>
                         </div>
                     </div>
+                    <div class="colony_info_entry is_overclock_enabled">
+                        <label><%= t('Enable Overclock') %></label>
+                        <div class='colony_info_entry_radio_container'>
+                            <input type="radio" id="enable_overclock" name='is_overclock_enabled' value='yes'>
+                            <label for='enable_overclock'><%= t('Yes') %></label>
+                            <input type="radio" id="disable_overclock" name='is_overclock_enabled' value='no'>
+                            <label for='disable_overclock'><%= t('No') %></label>
+                        </div>
+                    </div>
                     <div class="colony_info_entry is_spectate_enabled">
                         <label><%= t('Allow Spectate Command') %></label>
                         <div class='colony_info_entry_radio_container'>
@@ -1809,10 +1813,13 @@
         <div id="error_menu_content">
         </div>
     </div>
-<div id="caption_footer">
-        </div>
-        <div id="caption_center">
-        </div>
+    <div id="caption_footer">
+    </div>
+    <div id="caption_center">
+    </div>
+
+    <div id="arrow_container">
+    </div>
 
     <div id='notice_board'>
         
