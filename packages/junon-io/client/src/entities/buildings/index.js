@@ -26,6 +26,7 @@ Buildings.Production.ChemistryStation = require("./chemistry_station")
 Buildings.Production.MiningDrill = require("./mining_drill")
 Buildings.Production.DeepDrill = require("./deep_drill")
 Buildings.Production.AmmoPrinter = require("./ammo_printer")
+Buildings.Production.CircuitBoardPrinter = require("./circuit_board_printer")
 
 // structures
 
@@ -42,6 +43,7 @@ Buildings.Structures.SteelCrate = require("./steel_crate")
 Buildings.Structures.FarmController = require("./farm_controller")
 Buildings.Structures.FoodVendingMachine = require("./food_vending_machine")
 Buildings.Structures.DrinksVendingMachine = require("./drinks_vending_machine")
+Buildings.Structures.Dispenser = require("./dispenser")
 Buildings.Structures.Atm = require("./atm")
 Buildings.Structures.WaterPump = require("./water_pump")
 Buildings.Structures.LiquidPipe = require("./liquid_pipe")
@@ -56,6 +58,7 @@ Buildings.Structures.FlamethrowerTurret = require("./towers/flamethrower_turret"
 Buildings.Structures.MissileTurret = require("./towers/missile_turret")
 Buildings.Structures.TeslaCoil = require("./towers/tesla_coil")
 Buildings.Structures.BomberTurret = require("./towers/bomber_turret")
+Buildings.Structures.Revitalizer = require("./towers/revitalizer")
 Buildings.Structures.KeypadDoor = require("./keypad_door")
 Buildings.Structures.MiasmaGate = require("./miasma_gate.js")
 
@@ -83,7 +86,7 @@ for (let name in Constants.Walls) {
 
 Buildings.Furnitures.Bed = require("./bed")
 Buildings.Furnitures.Sign = require("./sign")
-
+Buildings.Furnitures.NeonSign = require("./neon_sign")
 Buildings.Furnitures.Table = require("./table")
 Buildings.Furnitures.LargeTable = require("./large_table")
 Buildings.Furnitures.WoodTable = require("./wood_table")
@@ -93,6 +96,9 @@ Buildings.Furnitures.SlaversTable = require("./slavers_table")
 Buildings.Furnitures.Chair = require("./chair")
 Buildings.Furnitures.WoodChair = require("./wood_chair")
 Buildings.Furnitures.Cage = require("./cage")
+Buildings.Furnitures.Window = require("./window")
+Buildings.Furnitures.ArmoredWindow = require("./armored_window")
+Buildings.Furnitures.LowWall = require("./low_wall")
 Buildings.Furnitures.Television = require("./television")
 Buildings.Furnitures.Terminal = require("./terminal")
 Buildings.Furnitures.Pot = require("./pot")
@@ -168,6 +174,7 @@ Buildings.Towers.IonCannon = require("./towers/ion_cannon")
 Buildings.Towers.MiniTurret = require("./towers/mini_turret")
 Buildings.Towers.MissileTurret = require("./towers/missile_turret")
 Buildings.Towers.BomberTurret = require("./towers/bomber_turret")
+Buildings.Towers.Revitalizer = require("./towers/revitalizer")
 Buildings.Towers.Fighter = require("./units/fighter")
 
 // crops
