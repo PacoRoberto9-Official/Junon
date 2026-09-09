@@ -1,0 +1,16 @@
+[Unit]
+Description=junon io code updater
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/root/env_variables
+ExecStart=/usr/local/bin/npm run start --prefix /root/junon-io-updater
+Restart=always
+RestartSec=3s
+MemoryAccounting=true
+MemoryHigh=128M
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target
