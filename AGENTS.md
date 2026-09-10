@@ -21,7 +21,7 @@ This file is the entry point, not the complete manual. Keep durable knowledge in
 - `packages/junon-matchmaker/`: player-facing HTTP/WebSocket matchmaking service.
 - `packages/junon-common/`: database models and migrations, protobuf schemas,
   serialization, logging, and socket utilities shared by services.
-- `packages/junon-io-updater/`: standalone AWS/Firebase updater process.
+- `packages/junon-io-watchdog/`: standalone game-server liveness watchdog.
 - `docs/`: versioned engineering knowledge and execution plans.
 
 ## Working rules

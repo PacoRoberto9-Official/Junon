@@ -7,7 +7,7 @@ repository today; it is not a proposal to redesign the system.
 
 Junon is a multiplayer survival game composed of a browser client, authoritative
 game servers, a matchmaker/API service, shared persistence and wire-contract
-code, and an updater process.
+code, and a game-server liveness watchdog.
 
 ```text
 Browser client
@@ -61,10 +61,11 @@ This package is shared infrastructure:
 Changes here have the widest blast radius and must be checked against both
 runtime services and the browser/game shared code.
 
-### `packages/junon-io-updater`
+### `packages/junon-io-watchdog`
 
-A separately started process integrating with AWS, Firebase, and shared Junon
-code. Keep its deployment assumptions isolated from normal game startup.
+A separately started process that probes the game-server liveness sockets and
+restarts only unresponsive systemd workers. It is not part of the deployment
+or revision-rollout path.
 
 ## Important contracts
 

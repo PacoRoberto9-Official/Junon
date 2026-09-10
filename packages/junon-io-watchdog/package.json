@@ -1,5 +1,5 @@
 {
-  "name": "junon-io-updater",
+  "name": "junon-io-watchdog",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

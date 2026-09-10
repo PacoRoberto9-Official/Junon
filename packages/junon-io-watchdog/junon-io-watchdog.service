@@ -1,11 +1,11 @@
 [Unit]
-Description=junon io code updater
+Description=junon io game-server watchdog
 After=network.target
 
 [Service]
 Type=simple
 EnvironmentFile=/root/env_variables
-ExecStart=/usr/local/bin/npm run start --prefix /root/junon-io-updater
+ExecStart=/usr/local/bin/npm run start --prefix /root/junon/packages/junon-io-watchdog
 Restart=always
 RestartSec=3s
 MemoryAccounting=true
