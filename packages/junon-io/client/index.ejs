@@ -274,8 +274,8 @@
                 ],
                 Logical_Evaluations: [
                     [   `$if`,
-                        `value1, operator, value2, then, else`,
-                        `Returns the value given the condition.`,
+                        `value1, ==/!=/>/</~=/>=/<=, value2, value3 (then), value4 (else)`,
+                        `Returns the value given the condition, ex. /give @a $if($getPlayerCount(),>,2,leadPipe,Pistol) 1`,
                     ],
                     [   `$getNthLetter`,
                         `index, value`,
@@ -385,7 +385,7 @@
                     ],
                     [   `$radian`,
                         `value`,
-                        `Turns out angle into radian. Ex. $radian(90) = π/2 ≈ 1.5707...`,
+                        `Returns an angle as radian. Ex. $radian(90) = π/2 ≈ 1.5707...`,
                     ],
                     [   `$sin`,
                         `value`,
@@ -401,7 +401,7 @@
                     ],
                     [   `$atan2`,
                         `y, x`,
-                        `Returns angle of in radians from y/x.`,
+                        `Returns angle in radians from y/x.`,
                     ],
                 ],
                 Miscellaneous: [
@@ -415,7 +415,7 @@
                     ],
                     [   `$getDate`,
                         `year/month/day/dayweek/hour/minute/second/millisecond/unixms, year month day hour minute second millisecond`,
-                        `Returns the component of the date in UTC as number. If the date is empty, then it will return using the current date in UTC. Ex. $getDate(hour) will return today's hour, $getDate(year,2014 4 1) will return 2014, $getDate(unixms) will return today's date in unix milliseconds.`,
+                        `Returns the date in UTC as number when provided with the time component to check for and the date to check from (first and second parameters). If the second parameter is empty, then it will return using the current date in UTC. Ex. $getDate(hour) will return today's hour, $getDate(year,2014 4 1) will return 2014, $getDate(unixms) will return today's date in unix milliseconds.`,
                     ],
                 ],
             };
