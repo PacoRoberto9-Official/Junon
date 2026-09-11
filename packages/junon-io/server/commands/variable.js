@@ -27,6 +27,7 @@ class Variable extends BaseCommand {
       "player": true,
       "playerId": true,
       "playerRole": true,
+      "playerName": true,
       "entityId": true,
       "entityType": true,
       "count": true,
@@ -50,9 +51,14 @@ class Variable extends BaseCommand {
       "foodType": true,
       "mobType": true,
       "seconds": true,
+      "storageId": true,
+      "storageType": true,
+      "itemType": true,
+      "key": true,
       "$storageId": true,
       "$storageType": true,
-      "$itemType": true
+      "$itemType": true,
+      "$key": true,
     }
   }
 
