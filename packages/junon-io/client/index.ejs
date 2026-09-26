@@ -306,6 +306,11 @@
                         `index, valueToRemove, value`,
                         `Returns the value after the valueToRemove is removed at the given index occurence from the value. Ex. $getRemovedValue(2,abc,abcdefg_abcdefg) = abcdefg_defg`,
                     ],
+                    [
+                        `$getReplacedValue`,
+                        'index, valueToReplace, valueToInsert, value',
+                        `Returns the value after all instances of valueToReplace after index letters is replaced with valueToInsert from value. Ex. $getReplacedValue(0,ca,z,cabca) = zbz, $getReplacedValue(2,ca,z,cabca) = cabz`,
+                    ]
                 ],
                 Mathematical_Operations: [
                     [   `$random`,

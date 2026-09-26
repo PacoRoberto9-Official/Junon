@@ -1438,6 +1438,16 @@ class EventHandler {
     return string.slice(0,startIndex) + string.slice(startIndex + value.length);
   }
 
+  getReplacedValue(...values) { //index, valueToReplace, valueToInsert, value
+    // Returns the value after the valueToReplace is replaced with valueToInsert after the index 
+    if (values.length < 3) return undefined;
+    let index = values[0].toString();
+    let replaceValue = values[1].toString();
+    let insertValue = values[2].toString();
+    let string = values[3].toString();
+    return string.slice(0, index) + string.slice(index).replaceAll(replaceValue, insertValue);
+  }
+
   getDate(...values) {
     if (values.length === 0) return undefined;
     let component = values[0].toString();
@@ -1612,6 +1622,7 @@ class EventHandler {
       "$getDate": true,
       "$getEntityDistance": true,
       "$getValueCount": true,
+      "$getReplacedValue": true,
     }
   }
 
