@@ -2155,13 +2155,13 @@
       "speed": 1
     },
     "Flame": {
-      "width": 16,
-      "height": 16,
-      "minWidth": 16,
+      "width": 20,
+      "height": 20,
+      "minWidth": 20,
       "maxWidth": 32,
       "maxRadialExpansion": 32,
       "damage": 1,
-      "speed": 10,
+      "speed": 30,
       "categories": {"elemental":true,"fire":true}
     },
     "IonBeam": {
@@ -7245,8 +7245,8 @@
         "fuelCapacity": 500,
         "powerConsumption": 100,
         "clientResource": "fuel",
-        "burstCount": 5,
-        "burstTimeout": 25,
+        "burstCount": 40,
+        "burstTimeout": 250,
         "spreadAngle": 10
       },
       "requirements": {

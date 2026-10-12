@@ -1,5 +1,6 @@
 const CollidableProjectile = require("./collidable_projectile")
 const Protocol = require('../../../common/util/protocol')
+const Helper = require('../../../common/helper')
 const Constants = require("./../../../common/constants.json")
 
 class Flame extends CollidableProjectile {
@@ -48,7 +49,7 @@ class Flame extends CollidableProjectile {
     flamableTargets.forEach((entity) => {
       let weaponOrOwner;
       if(this.weapon.canDamage) weaponOrOwner = this.weapon
-      if(this.owner.canDamage) weaponOrOwner = this.owner
+      if(this.owner?.canDamage) weaponOrOwner = this.owner
       let canBeDamaged = weaponOrOwner.canDamage(entity)
       if (entity.isFlamable() && canBeDamaged) {
         entity.damage(this.getDamage(entity), this, this)
@@ -61,7 +62,8 @@ class Flame extends CollidableProjectile {
   expandRadius() {
     if (this.stopExpanding) return
 
-    this.radialExpansion += 3
+    const distanceTravelled = Helper.distance(this.getX(), this.getY(), this.source.x, this.source.y)
+    this.radialExpansion = Math.round(distanceTravelled / Math.max(this.distanceToCover, 1) * this.MAX_RADIAL_EXPANSION)
     this.setWidthFromExpansion()
 
     this.onStateChanged()
@@ -75,17 +77,9 @@ class Flame extends CollidableProjectile {
     }
   }
 
-  determineMovementComplete() {
-    if (this.radialExpansion >= this.MAX_RADIAL_EXPANSION) {
-      this.stopExpanding = true
-      this.onMoveComplete()
-    }
-  }
-
   onCollide(entity) {
-    if (entity?.hasCategory("wall") && !this.piercesWalls) {
-      this.stopExpanding = true
-      this.onMoveComplete()
+    if (!this.piercesWalls) {
+      super.onCollide(entity)
     }
   }
 

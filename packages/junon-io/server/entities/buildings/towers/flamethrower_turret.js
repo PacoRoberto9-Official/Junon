@@ -91,7 +91,8 @@ class FlamethrowerTurret extends BaseTower {
       destination: destination,
       w: Constants.Projectiles.Flame.minWidth,
       h: Constants.Projectiles.Flame.minWidth,
-      piercesWalls: true
+      piercesWalls: true,
+      ignoreObstacles: true
     })
   }
 
