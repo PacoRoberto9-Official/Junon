@@ -241,24 +241,32 @@ class EventHandler {
     return Math.max(...values.map(v => this._safeNumber(v)))
   }
 
+  pi() {
+    return Math.PI
+  }
+
+  degree(value) {
+    return this._safeNumber(value) / (Math.PI / 180)
+  }
+
   radian(value) {
     return this._safeNumber(value) * (Math.PI / 180)
   }
 
   sin(value) {
-    return Math.sin(this._safeNumber(value))
+    return Math.sin(this.radian(this._safeNumber(value)))
   }
 
   cos(value) {
-    return Math.cos(this._safeNumber(value))
+    return Math.cos(this.radian(this._safeNumber(value)))
   }
 
   tan(value) {
-    return Math.tan(this._safeNumber(value))
+    return Math.tan(this.radian(this._safeNumber(value)))
   }
 
   atan2(y, x) {
-      return Math.atan2(this._safeNumber(y), this._safeNumber(x))
+    return this.degree(Math.atan2(this._safeNumber(y), this._safeNumber(x)))
   }
 
   length(value) {
@@ -1618,6 +1626,8 @@ class EventHandler {
       "$max": true,
       "$floor": true,
       "$ceil": true,
+      "$pi": true,
+      "$degree": true,
       "$radian": true,
       "$sin": true,
       "$cos": true,

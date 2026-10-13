@@ -276,7 +276,7 @@ class BaseProjectile extends BaseEntity {
   onMoveComplete() {
     this.body.velocity[0] = 0
     this.body.velocity[1] = 0
-    this.setPosition(this.destination.x, this.destination.y)
+    this.setPosition(this.lastPosition[0], this.lastPosition[1])
 
     this.remove()
   }
