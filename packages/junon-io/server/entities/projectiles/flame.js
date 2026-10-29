@@ -63,9 +63,6 @@ class Flame extends CollidableProjectile {
     if (this.stopExpanding) return
 
     const distanceTravelled = Helper.distance(this.getX(), this.getY(), this.source.x, this.source.y)
-    if (this.radialExpansion + 0.5>Math.round(distanceTravelled / Math.max(this.distanceToCover, 1) * this.MAX_RADIAL_EXPANSION)) {
-      console.log(Math.round(distanceTravelled / Math.max(this.distanceToCover, 1) * this.MAX_RADIAL_EXPANSION))
-    }
     this.radialExpansion = Math.max(this.radialExpansion + 0.5, Math.round(distanceTravelled / Math.max(this.distanceToCover, 1) * this.MAX_RADIAL_EXPANSION))
     this.setWidthFromExpansion()
 
