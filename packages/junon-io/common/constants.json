@@ -2161,7 +2161,7 @@
       "maxWidth": 32,
       "maxRadialExpansion": 32,
       "damage": 1,
-      "speed": 30,
+      "speed": 20,
       "categories": {"elemental":true,"fire":true}
     },
     "IonBeam": {
