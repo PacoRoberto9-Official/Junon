@@ -8,7 +8,7 @@ class Setting extends BaseCommand {
       "Configures the settings of the colony",
       "/setting [key] [value]",
       "To get all available keys:",
-      "/setting help",
+      "/setting list",
       "ex: /setting isChatEnabled false",
       "/setting lighting 23",
     ]
@@ -30,7 +30,7 @@ class Setting extends BaseCommand {
     let key = args[0]
     let value = args[1]
 
-    if (key === 'help') {
+    if (key === 'list') {
       player.showChatSuccess("Available [true|false] keys: " + Object.keys(this.sector.settings).join(", "))
       player.showChatSuccess("Available keys: " + this.getAllowedExtraSettings().join(", "))
       return
