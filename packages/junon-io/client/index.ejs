@@ -444,6 +444,7 @@
             };
             
             let section_html = `
+                <button id="function_table_expand_all" onclick="function_table_expand_all()">expand all</button>
                 <table class='function_table' cellspacing="0">
             `;
             for (const key of Object.keys(function_table)) {
@@ -479,11 +480,16 @@
             document.getElementById('functions_table_wrapper').innerHTML += section_html;
         }
 
-        function function_table_collapse(el) {
+        function function_table_collapse(el, forceExpand = false) {
             const table_body = el.parentElement.parentElement.parentElement.nextElementSibling;
             const el_with_scrollbar = document.querySelector('.command_block_tab_content');
 
-            console.log(el_with_scrollbar.scrollTop + el.getBoundingClientRect().top)
+            if (forceExpand) {
+                table_body.className = "";
+                el.innerHTML = 'v';
+                return;
+            }
+
             if (table_body.className === 'functions_table_hidden') {
                 table_body.className = "";
                 el.innerHTML = 'v';
@@ -491,6 +497,24 @@
             } else {
                 table_body.className = "functions_table_hidden";
                 el.innerHTML = '>';
+            }
+        }
+
+        function function_table_expand_all() {
+            const button = document.getElementById("function_table_expand_all");
+            const tables = button.nextElementSibling.getElementsByTagName("thead");
+            
+            for (const el of tables) {
+                function_table_collapse(el.getElementsByTagName("tr")[0].getElementsByTagName("th")[0].getElementsByTagName("button")[0], true);
+                if (button.innerHTML == 'collapse all') {
+                    function_table_collapse(el.getElementsByTagName("tr")[0].getElementsByTagName("th")[0].getElementsByTagName("button")[0]);
+                }
+            }
+
+            if (button.innerHTML == 'collapse all') {
+                button.innerHTML = 'expand all';
+            }else{
+                button.innerHTML = 'collapse all';
             }
         }
     </script>
