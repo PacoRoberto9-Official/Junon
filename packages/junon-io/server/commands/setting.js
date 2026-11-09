@@ -7,8 +7,8 @@ class Setting extends BaseCommand {
     return [
       "Configures the settings of the colony",
       "/setting [key] [value]",
-     "Available [true|false] keys: " + Object.keys(this.sector.settings).join(", "),
-     "Available keys: " + this.getAllowedExtraSettings().join(", "),
+      "To get all available keys:",
+      "/setting list",
       "ex: /setting isChatEnabled false",
       "/setting lighting 23",
     ]
@@ -29,6 +29,12 @@ class Setting extends BaseCommand {
   perform(player, args) {
     let key = args[0]
     let value = args[1]
+
+    if (key === 'list') {
+      player.showChatSuccess("Available [true|false] keys: " + Object.keys(this.sector.settings).join(", "))
+      player.showChatSuccess("Available keys: " + this.getAllowedExtraSettings().join(", "))
+      return
+    }
 
     if (key === 'buildSpeed') {
       value = parseInt(value)

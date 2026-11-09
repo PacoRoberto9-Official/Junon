@@ -63,7 +63,7 @@ class Flame extends CollidableProjectile {
     if (this.stopExpanding) return
 
     const distanceTravelled = Helper.distance(this.getX(), this.getY(), this.source.x, this.source.y)
-    this.radialExpansion = Math.round(distanceTravelled / Math.max(this.distanceToCover, 1) * this.MAX_RADIAL_EXPANSION)
+    this.radialExpansion = Math.max(this.radialExpansion + 0.5, Math.round(distanceTravelled / Math.max(this.distanceToCover, 1) * this.MAX_RADIAL_EXPANSION))
     this.setWidthFromExpansion()
 
     this.onStateChanged()
@@ -75,6 +75,15 @@ class Flame extends CollidableProjectile {
     } else {
       this.width = this.w
     }
+  }
+
+  determineMovementComplete() {
+    if (this.radialExpansion >= this.MAX_RADIAL_EXPANSION) {
+      this.stopExpanding = true
+      this.onMoveComplete()
+    }
+
+    super.determineMovementComplete()
   }
 
   onCollide(entity) {

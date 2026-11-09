@@ -8769,7 +8769,11 @@ body.imposter_mode .minigame_poster {
     width: 30%;
 }
 
-.function_table button {
+#function_table_expand_all {
+    font-size: small;
+}
+
+.function_table button, #function_table_expand_all {
     color: #00b9ff;
     background-color: #00000000;
     border: none;
